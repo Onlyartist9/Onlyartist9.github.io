@@ -93,22 +93,69 @@
             padding: 10px;
             background-color: #000000;
         }
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        #linkedin-icon {
+            fill: #d9442d; /* Default color */
+            width: 24px;
+            height: 24px;
+            transition: fill 0.3s ease;
+        }
+
+        #linkedin-icon:hover {
+            fill: #f57a29; /* Hover color */
+        }
+
+        #email-icon {
+            fill: #d9442d; /* Default color */
+            width: 24px;
+            height: 24px;
+            transition: fill 0.3s ease;
+        }
+
+        #email-icon:hover {
+            fill: #f57a29; /* Hover color */
+        }
+
+        #goodreads-icon {
+            fill: #d9442d; /* Default color */
+            width: 24px;
+            height: 24px;
+            transition: fill 0.3s ease;
+        }
+
+        #goodreads-icon:hover {
+            fill: #f57a29; /* Hover color */
+        }
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+
         document.addEventListener('DOMContentLoaded', () => {
+
+            // Anime js script.
             anime({
                 targets: '#MyName',
                 borderColor: ['#d9442d', '#f57a29'],
-                duration: 100,
+                duration: 200,
                 loop: true,
                 easing: 'linear'
             });
 
+
+            // Dom manipulation of the Stats information.
             const statsButton = document.querySelector('.sidebar li:nth-child(1)');
+
             const extraSidebar = document.createElement('div');
+
             extraSidebar.classList.add('extra-sidebar', 'hidden');
+
             extraSidebar.innerHTML = `
                 <ul>
                     <li>Build</li>
@@ -116,6 +163,7 @@
                     <li>Skill Tree</li>
                 </ul>
             `;
+            
             document.querySelector('.file-system').insertBefore(extraSidebar, document.querySelector('.content'));
 
             statsButton.addEventListener('click', () => {
@@ -148,7 +196,7 @@
                 const data = {
                     labels: ['Intelligence', 'Wisdom', 'Dexterity', 'Constitution', 'Charisma', 'Strength'],
                     datasets: [{
-                        label: 'Battle Mage',
+                        label: 'Temperament',
                         data: [142, 148, 120, 105, 130, 135],
                         backgroundColor: 'rgba(217, 68, 45, 0.2)',
                         borderColor: '#f57a29',
@@ -202,7 +250,7 @@
 
             personalityButton.addEventListener('click', () => {
                 const data = {
-                    labels: ['Extroversion', 'Openness', 'Agreeableness', 'Conscientiousness', 'Neuroticism'],
+                    labels: ['Extraversion', 'Openness', 'Agreeableness', 'Conscientiousness', 'Neuroticism'],
                     datasets: [{
                         label: 'Personality Traits',
                         data: [16, 93, 47, 83, 21],
@@ -260,6 +308,7 @@
 
             // Projects section
             const projectsButton = document.querySelector('.sidebar li:nth-child(3)');
+
             projectsButton.addEventListener('click', () => {
                 clearContent();
                 const content = document.querySelector('.content');
@@ -271,6 +320,22 @@
                     </ul>
                 `;
             });
+
+            // Presence section
+            const presenceButton = document.querySelector('.sidebar li:nth-child(4)');
+            presenceButton.addEventListener('click', () => {
+                clearContent();
+                const content = document.querySelector('.content');
+                content.innerHTML = `
+                    <h3>Where you can find him:</h3>
+                    <ul>
+                        <li><img src="linkedin-icon.svg" class="icon" alt="LinkedIn"> <a href="https://www.linkedin.com/in/samuel-n-t-a-g-946584246" target="_blank">LinkedIn</a></li>
+                        <li><img src="email-icon.svg" class="icon" alt="Email"> <a href="mailto:gyamfisamuel10@gmail.com">Email</a></li>
+                        <li><img src="goodreads-icon.svg" class="icon" alt="Goodreads"> <a href="https://www.goodreads.com/samuelgyamfi" target="_blank">Goodreads</a></li>
+                    </ul>
+                `;
+            });
+
         });
     </script>
 </head>
@@ -278,7 +343,8 @@
     <div class="container">
         <h1 id="MyName">Samuel N.T.A Gyamfi</h1>
         <div class="about">
-            <p>Samuel Nana Tabiri Amponsah Gyamfi has a deep passion for understanding the ideas and concepts that move the world around, the ideas not yet adequately utilized, and the use of said ideas for the betterment of humanity.</p>
+            <h2>Profile:</h1>
+            <p>Samuel Nana Tabiri Amponsah Gyamfi has a deep passion for understanding the ideas and concepts that move the world around, the ideas not yet adequately utilized, and the use of said ideas for the betterment of humanity. His interests include but are not limited to Computer Science, Economics, Decision Theory, Modern Physics, Cognitive Science and Art.</p>
         </div>
         <div class="file-system">
             <div class="sidebar">
@@ -290,7 +356,7 @@
                 </ul>
             </div>
             <div class="content">
-                <!-- Content for each category will go here
+                <!-- Content for each category will go here-->
             </div>
         </div>
     </div>
