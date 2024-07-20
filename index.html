@@ -12,46 +12,287 @@
             font-family: 'Kode Mono', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #000000;
+            color: #d9442d;
         }
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #ffffff;
+            background-color: #000000;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        a {
+            color: #d9442d;
+            text-decoration: underline;
+            font-weight: bold;
         }
         h1 {
             font-size: 24px;
-            color: #333;
+            color: #d9442d;
+            border: 2px solid #d9442d;
+            padding: 10px;
+            text-align: center;
         }
-        p {
+        p, ul, li {
             font-size: 16px;
-            color: #666;
+            color: #d9442d;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li::before {
+            content: "-> ";
+            color: #f57a29;
+        }
+        .about {
+            border: 2px solid #d9442d;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .file-system {
+            display: flex;
+            border: 2px solid #d9442d;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #000000;
+            padding: 10px;
+            border-right: 2px solid #d9442d;
+        }
+        .sidebar li {
+            margin-bottom: 10px;
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #d9442d;
+        }
+        .sidebar li:hover {
+            color: #f57a29;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 10px;
+            background-color: #000000;
+        }
+        .extra-sidebar {
+            width: 200px;
+            background-color: #000000;
+            padding: 10px;
+            border-right: 2px solid #d9442d;
+            cursor: pointer;
+        }
+        .extra-sidebar li:hover {
+            color: #f57a29;
+        }
+        .hidden {
+            display: none;
+        }
+        .chart-container {
+            flex-grow: 1;
+            padding: 10px;
+            background-color: #000000;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            anime({
+                targets: '#MyName',
+                borderColor: ['#d9442d', '#f57a29'],
+                duration: 100,
+                loop: true,
+                easing: 'linear'
+            });
+
+            const statsButton = document.querySelector('.sidebar li:nth-child(1)');
+            const extraSidebar = document.createElement('div');
+            extraSidebar.classList.add('extra-sidebar', 'hidden');
+            extraSidebar.innerHTML = `
+                <ul>
+                    <li>Build</li>
+                    <li>Personality</li>
+                    <li>Skill Tree</li>
+                </ul>
+            `;
+            document.querySelector('.file-system').insertBefore(extraSidebar, document.querySelector('.content'));
+
+            statsButton.addEventListener('click', () => {
+                extraSidebar.classList.toggle('hidden');
+            });
+
+            const buildButton = extraSidebar.querySelector('li:nth-child(1)');
+            const personalityButton = extraSidebar.querySelector('li:nth-child(2)');
+
+            let chartInstance = null;
+
+            const chartContainer = document.createElement('div');
+            chartContainer.classList.add('chart-container');
+            document.querySelector('.file-system').appendChild(chartContainer);
+
+            function clearContent() {
+                if (chartInstance) chartInstance.destroy();
+                chartContainer.innerHTML = '';
+                document.querySelector('.content').innerHTML = '';
+            }
+
+            function createChart(type, data, options) {
+                clearContent();
+                const ctx = document.createElement('canvas');
+                chartContainer.appendChild(ctx);
+                chartInstance = new Chart(ctx, { type, data, options });
+            }
+
+            buildButton.addEventListener('click', () => {
+                const data = {
+                    labels: ['Intelligence', 'Wisdom', 'Dexterity', 'Constitution', 'Charisma', 'Strength'],
+                    datasets: [{
+                        label: 'Battle Mage',
+                        data: [142, 148, 120, 105, 130, 135],
+                        backgroundColor: 'rgba(217, 68, 45, 0.2)',
+                        borderColor: '#f57a29',
+                        pointBackgroundColor: '#d9442d',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#d9442d'
+                    }]
+                };
+                const options = {
+                    scales: {
+                        r: {
+                            ticks: {
+                                display: false,
+                            },
+                            animate: true,
+                            startAngle: 0,
+                            grid: {
+                                display: true,
+                                color: '#f57a29',
+                                lineWidth: 2,
+                            },
+                            angleLines: {
+                                display: true,
+                                color: '#f57a29',
+                                lineWidth: 2,
+                            },
+                            pointLabels: {
+                                color: '#d9442d',
+                            },
+                            beginAtZero: true,
+                            hover: {
+                                mode: 'nearest',
+                                intersect: true,
+                                onHover: function(event, chartElement) {
+                                    if (chartElement.length) {
+                                        event.target.style.cursor = 'pointer';
+                                    } else {
+                                        event.target.style.cursor = 'default';
+                                    }
+                                }
+                            },
+                            tooltips: {
+                                enabled: false
+                            },
+                        },
+                    },
+                };
+                createChart('radar', data, options);
+            });
+
+            personalityButton.addEventListener('click', () => {
+                const data = {
+                    labels: ['Extroversion', 'Openness', 'Agreeableness', 'Conscientiousness', 'Neuroticism'],
+                    datasets: [{
+                        label: 'Personality Traits',
+                        data: [16, 93, 47, 83, 21],
+                        backgroundColor: '#f57a29',
+                        borderColor: '#d9442d',
+                        borderWidth: 1
+                    }]
+                };
+                const options = {
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                color: '#f57a29',
+                                lineWidth: 2
+                            },
+                            ticks: {
+                                color: '#d9442d'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: '#f57a29',
+                                lineWidth: 2
+                            },
+                            ticks: {
+                                color: '#d9442d'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: false
+                        }
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true,
+                        onHover: function(event, chartElement) {
+                            if (chartElement.length) {
+                                event.target.style.cursor = 'pointer';
+                            } else {
+                                event.target.style.cursor = 'default';
+                            }
+                        }
+                    }
+                };
+                createChart('bar', data, options);
+            });
+
+            // Projects section
+            const projectsButton = document.querySelector('.sidebar li:nth-child(3)');
+            projectsButton.addEventListener('click', () => {
+                clearContent();
+                const content = document.querySelector('.content');
+                content.innerHTML = `
+                    <h3>Projects</h3>
+                    <ul>
+                        <li><strong>Gaia:</strong> Samuel is building a dynamic AI-infused assistant for the Geo and Environmental Sciences.You can find its github repo <a href="https://github.com/Onlyartist9/Gaia" target="_blank">here.</a></li>
+                        <li><strong>Heimdall.AI:</strong> Samuel is automating the data labeling and processing pipeline.</li>
+                    </ul>
+                `;
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
-        <h1 id="MyName">Samuel Gyamfi</h1>
-        <p> My name is Samuel Nana Tabiri Amponsah Gyamfi. I have a deep passion for understanding the ideas and concepts that move the world around, the ideas not yet adequately utilized, and the use of said ideas for good.</p>
-        <h3>Interests</h3>
-        <ul>
-            <li>Software Architecture and Design</li>
-            <li>Deep Learning</li>
-            <li>GPU Programming</li>
-            <li>Cybersecurity</li>
-            <li>Future and Progress studies</li>
-            <li>Economics</li>
-            <li>Art</li>
-            <li>Anime</li>
-            <li>Music</li>
-        </ul>
-        <h3>Projects</h3>
-        <ul>
-            <li><a href="https://github.com/Onlyartist9/Gaia">Gaia (in progress):</a> Building a dynamic AI-infused assistant for the Geo and Environmental Sciences.</li>
-            <li>Heimdall.AI(Coming Soon): Automating the data labelling and processing pipeline.</li>
-        </ul>
+        <h1 id="MyName">Samuel N.T.A Gyamfi</h1>
+        <div class="about">
+            <p>Samuel Nana Tabiri Amponsah Gyamfi has a deep passion for understanding the ideas and concepts that move the world around, the ideas not yet adequately utilized, and the use of said ideas for the betterment of humanity.</p>
+        </div>
+        <div class="file-system">
+            <div class="sidebar">
+                <ul>
+                    <li>Stats</li>
+                    <li>World Model</li>
+                    <li>Projects</li>
+                    <li>Presence</li>
+                </ul>
+            </div>
+            <div class="content">
+                <!-- Content for each category will go here
+            </div>
+        </div>
     </div>
 </body>
 </html>
