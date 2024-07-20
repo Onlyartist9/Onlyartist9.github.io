@@ -172,6 +172,7 @@
 
             const buildButton = extraSidebar.querySelector('li:nth-child(1)');
             const personalityButton = extraSidebar.querySelector('li:nth-child(2)');
+            const skillTreeButton = extraSidebar.querySelector('li:nth-child(3)');
 
             let chartInstance = null;
 
@@ -315,7 +316,7 @@
                 content.innerHTML = `
                     <h3>Projects</h3>
                     <ul>
-                        <li><strong>Gaia:</strong> Samuel is building a dynamic AI-infused assistant for the Geo and Environmental Sciences.You can find its github repo <a href="https://github.com/Onlyartist9/Gaia" target="_blank">here.</a></li>
+                        <li><strong>Gaia:</strong> Samuel is building a dynamic AI-infused environment for the Geo and Environmental Sciences.You can find its github repo <a href="https://github.com/Onlyartist9/Gaia" target="_blank">here.</a></li>
                         <li><strong>Heimdall.AI:</strong> Samuel is automating the data labeling and processing pipeline.</li>
                     </ul>
                 `;
@@ -336,6 +337,16 @@
                 `;
             });
 
+            // Skill Tree 
+            skillTreeButton.addEventListener('click' ,() =>{
+                clearContent();
+                const content = document.querySelector('.content');
+                content.innerHTML = `
+                    <h3>Access Denied <img src="warning.svg" alt="Warning" class="icon"></h3>
+                `;
+            })
+            
+
         });
     </script>
 </head>
@@ -344,7 +355,7 @@
         <h1 id="MyName">Samuel N.T.A Gyamfi</h1>
         <div class="about">
             <h2>Profile:</h1>
-            <p>Samuel Nana Tabiri Amponsah Gyamfi has a deep passion for understanding the ideas and concepts that move the world around, the ideas not yet adequately utilized, and the use of said ideas for the betterment of humanity. His interests include but are not limited to Computer Science, Economics, Decision Theory, Modern Physics, Cognitive Science and Art.</p>
+            <p>Samuel has a deep passion for understanding the ideas and concepts that move the world around, the ideas not yet adequately utilized, and the use of said ideas for the betterment of humanity. His interests include but are not limited to Computer Science, Economics, Decision Theory, Modern Physics, Cognitive Science and Art.</p>
         </div>
         <div class="file-system">
             <div class="sidebar">
@@ -352,7 +363,8 @@
                     <li>Stats</li>
                     <li>World Model</li>
                     <li>Projects</li>
-                    <li>Presence</li>
+                    <li>Contact</li>
+                    <li>Influences</li>
                 </ul>
             </div>
             <div class="content">
