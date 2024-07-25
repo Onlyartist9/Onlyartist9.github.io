@@ -308,7 +308,7 @@
             });
 
             // Projects section
-            const projectsButton = document.querySelector('.sidebar li:nth-child(3)');
+            const projectsButton = document.querySelector('.sidebar li:nth-child(2)');
 
             projectsButton.addEventListener('click', () => {
                 clearContent();
@@ -322,9 +322,9 @@
                 `;
             });
 
-            // Presence section
-            const presenceButton = document.querySelector('.sidebar li:nth-child(4)');
-            presenceButton.addEventListener('click', () => {
+            // Contact section
+            const contactButton = document.querySelector('.sidebar li:nth-child(3)');
+            contactButton.addEventListener('click', () => {
                 clearContent();
                 const content = document.querySelector('.content');
                 content.innerHTML = `
@@ -362,10 +362,9 @@
             <div class="sidebar">
                 <ul>
                     <li>Stats</li>
-                    <li>World Model</li>
                     <li>Projects</li>
                     <li>Contact</li>
-                    <li>Influences</li>
+                    <li>Thoughts and Influences</li>
                 </ul>
             </div>
             <div class="content">
