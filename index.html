@@ -11,7 +11,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-
         document.addEventListener('DOMContentLoaded', () => {
 
             // Anime js script.
@@ -64,10 +63,9 @@
                 <ul>
                     <li>Build</li>
                     <li>Personality</li>
-                    <li>Skill Tree</li>
                 </ul>
             `;
-            
+
             document.querySelector('.file-system').insertBefore(extraSidebar, document.querySelector('.content'));
 
             statsButton.addEventListener('click', () => {
@@ -80,21 +78,43 @@
 
             let chartInstance = null;
 
-            const chartContainer = document.createElement('div');
-            chartContainer.classList.add('chart-container');
-            document.querySelector('.file-system').appendChild(chartContainer);
-
             function clearContent() {
                 if (chartInstance) chartInstance.destroy();
-                chartContainer.innerHTML = '';
-                document.querySelector('.content').innerHTML = '';
             }
 
-            function createChart(type, data, options) {
+            function createChart(type, data, options, container) {
                 clearContent();
                 const ctx = document.createElement('canvas');
-                chartContainer.appendChild(ctx);
+                container.appendChild(ctx);
                 chartInstance = new Chart(ctx, { type, data, options });
+            }
+
+            function createCustomWindow(title, chartType, chartData, chartOptions) {
+                const customWindow = document.createElement('div');
+                customWindow.classList.add('custom-window');
+                customWindow.innerHTML = `
+                    <div class="custom-window-header">
+                        <h2>${title}</h2>
+                        <button class="close-button">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 6L6 18" stroke="#d9442d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M6 6L18 18" stroke="#d9442d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="custom-window-content">
+                        <div class="chart-container"></div>
+                    </div>
+                `;
+                document.body.appendChild(customWindow);
+
+                const closeButton = customWindow.querySelector('.close-button');
+                closeButton.addEventListener('click', () => {
+                    document.body.removeChild(customWindow);
+                });
+
+                const chartContainer = customWindow.querySelector('.chart-container');
+                createChart(chartType, chartData, chartOptions, chartContainer);
             }
 
             buildButton.addEventListener('click', () => {
@@ -150,7 +170,7 @@
                         },
                     },
                 };
-                createChart('radar', data, options);
+                createCustomWindow('Build', 'radar', data, options);
             });
 
             personalityButton.addEventListener('click', () => {
@@ -208,7 +228,7 @@
                         }
                     }
                 };
-                createChart('bar', data, options);
+                createCustomWindow('Personality', 'bar', data, options);
             });
 
             // Projects section
@@ -241,23 +261,32 @@
                         <li><img src="github.svg" class="icon" alt="Github"> <a href="https://www.github.com/onlyartist9" target="_blank">Github</a></li>
                     </ul>
                 `;
-            });
+            });            
 
-            // Skill Tree 
-            skillTreeButton.addEventListener('click' ,() =>{
+            // Influences and Beliefs
+            const thoughtsButton = document.querySelector('.sidebar li:nth-child(4)');
+            thoughtsButton.addEventListener('click', () => {
                 clearContent();
                 const content = document.querySelector('.content');
                 content.innerHTML = `
-                    <h3>Access Denied <img src="warning.svg" alt="Warning" class="icon"></h3>
+                    <h3>Inspiration:</h3>
+                    <p>The subject (Samuel) seems to draw inspiration from a wide variety of places:</p>
+                    <ul>
+                        <li>Anime and Fiction more broadly. His website seems to draw inspiration from <a href="https://www.youtube.com/watch?v=k0oQr7ZVtBQ" target="_blank">the UI design in Neon Genesis Evangelion</a>. Indulgence in fiction is how he spends his leisure time.</li>
+                        <li>His mom. He seems to admire her conscientiousness and fundamentally works hard to ensure he makes her proud some day.</li>
+                        <li>He spends a lot of time reading blogs, and writings from all over the internet and by various brilliant people. He occassionally visits <a href="https://www.lesswrong.com/posts/XvN2QQpKTuEzgkZHY/being-the-pareto-best-in-the-world" target="_blank">LessWrong</a>,reads the blog of Renowned Mathematician<a href="https://terrytao.wordpress.com/career-advice/work-hard/" target="_blank">Terence Tao</a>, gets advice on entrepreneurship from <a href="https://www.paulgraham.com/articles.html" target="_blank">Paul Graham</a> or satiates his curiousity on productivity, cryptography, and other niche topics with <a href="https://gwern.net/index" target="_blank">Gwern's blog</a>. When he's not reading he might be listening to <a href="https://darknetdiaries.com/">DarkNet Diaries</a>, </li>
+                        <li>He's inspired by <a href="https://en.wikipedia.org/wiki/Jensen_Huang" target="_blank">Jensen Huang</a> his relentlessness and thinks he's the greatest entrepreneur alive.</li>
+                    </ul>
+                    <h3>Beliefs:</h3>
+                    <p>The subject believes that persistence overcomes all barriers- that the only real constraints on human ambition are energy and time and that these constraints are surprisingly far looser than one may imagine. He believes focus, direction and agency are in limited supply and even more limited demand.</p>
+                    <p>He's also a soft determinist. He believes that free will and the laws of physics that probablistically determine human action and behaviour are compatible.</p>
                 `;
-            })
-            
-
+            });   
         });
     </script>
 </head>
 <body>
-    
+
     <div class="left-confidential">
         <img src="Confidential Upwords.svg" class="side-image" id="leftImage1">
         <img src="Confidential Upwords.svg" class="side-image" id="leftImage2">
@@ -284,7 +313,7 @@
                     <li>Stats</li>
                     <li>Projects</li>
                     <li>Contact</li>
-                    <li>Thoughts and Influences</li>
+                    <li>Influences and Beliefs</li>
                 </ul>
             </div>
             <div class="content">
