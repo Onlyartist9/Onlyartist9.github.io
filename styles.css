@@ -1,0 +1,138 @@
+body {
+    font-family: 'Kode Mono', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #000000;
+    color: #d9442d;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #000000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative; /* Added to position the images relative to the container */
+}
+a {
+    color: #d9442d;
+    text-decoration: underline;
+    font-weight: bold;
+}
+h1 {
+    font-size: 24px;
+    color: #d9442d;
+    border: 2px solid #d9442d;
+    padding: 10px;
+    text-align: center;
+}
+p, ul, li {
+    font-size: 16px;
+    color: #d9442d;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+ul li::before {
+    content: "-> ";
+    color: #f57a29;
+}
+.about {
+    border: 2px solid #d9442d;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.file-system {
+    display: flex;
+    border: 2px solid #d9442d;
+}
+.sidebar {
+    width: 200px;
+    background-color: #000000;
+    padding: 10px;
+    border-right: 2px solid #d9442d;
+}
+.sidebar li {
+    margin-bottom: 10px;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #d9442d;
+}
+li {
+    padding: 10px;
+}
+.sidebar li:hover {
+    color: #f57a29;
+}
+.content {
+    flex-grow: 1;
+    padding: 10px;
+    background-color: #000000;
+}
+.extra-sidebar {
+    width: 200px;
+    background-color: #000000;
+    padding: 10px;
+    border-right: 2px solid #d9442d;
+    cursor: pointer;
+}
+.extra-sidebar li:hover {
+    color: #f57a29;
+}
+.hidden {
+    display: none;
+}
+.chart-container {
+    flex-grow: 1;
+    padding: 10px;
+    background-color: #000000;
+}
+.icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+#linkedin-icon {
+    fill: #d9442d; /* Default color */
+    width: 24px;
+    height: 24px;
+    transition: fill 0.3s ease;
+}
+#linkedin-icon:hover {
+    fill: #f57a29; /* Hover color */
+}
+#email-icon {
+    fill: #d9442d; /* Default color */
+    width: 24px;
+    height: 24px;
+    transition: fill 0.3s ease;
+}
+#email-icon:hover {
+    fill: #f57a29; /* Hover color */
+}
+#goodreads-icon {
+    fill: #d9442d; /* Default color */
+    width: 24px;
+    height: 24px;
+    transition: fill 0.3s ease;
+}
+#goodreads-icon:hover {
+    fill: #f57a29; /* Hover color */
+}
+.left-confidential, .right-confidential {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100px; /* Adjust the width as needed */
+}
+.left-confidential {
+    left: 30px; /* Position the image to the left of the container */
+}
+.right-confidential {
+    right:30px; /* Position the image to the right of the container */
+}
+.side-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}

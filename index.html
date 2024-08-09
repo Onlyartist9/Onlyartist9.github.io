@@ -7,135 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samuel Gyamfi</title>
-    <style>
-        body {
-            font-family: 'Kode Mono', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #000000;
-            color: #d9442d;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #000000;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        a {
-            color: #d9442d;
-            text-decoration: underline;
-            font-weight: bold;
-        }
-        h1 {
-            font-size: 24px;
-            color: #d9442d;
-            border: 2px solid #d9442d;
-            padding: 10px;
-            text-align: center;
-        }
-        p, ul, li {
-            font-size: 16px;
-            color: #d9442d;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        ul li::before {
-            content: "-> ";
-            color: #f57a29;
-        }
-        .about {
-            border: 2px solid #d9442d;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-        .file-system {
-            display: flex;
-            border: 2px solid #d9442d;
-        }
-        .sidebar {
-            width: 200px;
-            background-color: #000000;
-            padding: 10px;
-            border-right: 2px solid #d9442d;
-        }
-        .sidebar li {
-            margin-bottom: 10px;
-            padding: 10px;
-            cursor: pointer;
-            border-bottom: 1px solid #d9442d;
-        }
-        li {
-          padding:10px;
-        }
-        .sidebar li:hover {
-            color: #f57a29;
-        }
-        .content {
-            flex-grow: 1;
-            padding: 10px;
-            background-color: #000000;
-        }
-        .extra-sidebar {
-            width: 200px;
-            background-color: #000000;
-            padding: 10px;
-            border-right: 2px solid #d9442d;
-            cursor: pointer;
-        }
-        .extra-sidebar li:hover {
-            color: #f57a29;
-        }
-        .hidden {
-            display: none;
-        }
-        .chart-container {
-            flex-grow: 1;
-            padding: 10px;
-            background-color: #000000;
-        }
-        .icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
-
-        #linkedin-icon {
-            fill: #d9442d; /* Default color */
-            width: 24px;
-            height: 24px;
-            transition: fill 0.3s ease;
-        }
-
-        #linkedin-icon:hover {
-            fill: #f57a29; /* Hover color */
-        }
-
-        #email-icon {
-            fill: #d9442d; /* Default color */
-            width: 24px;
-            height: 24px;
-            transition: fill 0.3s ease;
-        }
-
-        #email-icon:hover {
-            fill: #f57a29; /* Hover color */
-        }
-
-        #goodreads-icon {
-            fill: #d9442d; /* Default color */
-            width: 24px;
-            height: 24px;
-            transition: fill 0.3s ease;
-        }
-
-        #goodreads-icon:hover {
-            fill: #f57a29; /* Hover color */
-        }
-
-    </style>
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
@@ -149,6 +21,35 @@
                 duration: 200,
                 loop: true,
                 easing: 'linear'
+            });
+
+
+            // Define the animation function for left images
+            anime({
+                targets: '.left-confidential .side-image',
+                translateY: [window.innerHeight, -window.innerHeight], // Move from bottom to top
+                loop: true,
+                easing: 'linear',
+                duration: 10000, // Duration of one loop in milliseconds
+            });
+
+            // Define the animation function for right images
+            anime({
+                targets: '.right-confidential .side-image',
+                translateY: [-window.innerHeight, window.innerHeight], // Move from top to bottom
+                loop: true,
+                easing: 'linear',
+                duration: 10000, // Duration of one loop in milliseconds
+            });
+
+            // Creating flashing effect for the confidential images.
+            anime({
+                targets: '.side-image',
+                backgroundColor: ['#000000', '#f57a29'], // Transition from black to #f57a29
+                loop: true,
+                easing: 'easeInOutQuad',
+                duration: 1000, // Duration of one loop in milliseconds
+                direction: 'alternate' // Alternate between the colors
             });
 
 
@@ -356,11 +257,25 @@
     </script>
 </head>
 <body>
+    <div class="left-confidential">
+        <img src="Confidential Upwords.svg" class="side-image" id="leftImage1">
+        <img src="Confidential Upwords.svg" class="side-image" id="leftImage2">
+        <img src="Confidential Upwords.svg" class="side-image" id="leftImage3">
+        <img src="Confidential Upwords.svg" class="side-image" id="leftImage4">
+    </div>
+
+    <div class="right-confidential">
+        <img src="Confidential Downwards.svg" class="side-image" id="rightImage1">
+        <img src="Confidential Downwards.svg" class="side-image" id="rightImage2">
+        <img src="Confidential Downwards.svg" class="side-image" id="rightImage3">
+        <img src="Confidential Downwards.svg" class="side-image" id="rightImage4">
+    </div>
+
     <div class="container">
         <h1 id="MyName">Samuel Gyamfi</h1>
         <div class="about">
             <h2>Profile:</h1>
-            <p>Samuel has a deep passion for understanding the ideas and concepts that move the world around, the ideas not yet adequately utilized, and the use of said ideas for the betterment of humanity. His interests include but are not limited to Computer Science, AI, Economics, Finance, Decision Theory, Cognitive Science and Art.</p>
+            <p>Samuel has a deep passion for understanding the ideas and concepts that move the world around, the ideas not yet adequately utilized, and the use of said ideas for the betterment of humanity. His interests include but are not limited to Technology, Entrepreneurship, Economics, Finance, Decision Theory, Cognitive Science and Art.</p>
         </div>
         <div class="file-system">
             <div class="sidebar">
