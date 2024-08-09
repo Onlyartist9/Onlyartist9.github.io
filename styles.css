@@ -136,3 +136,9 @@ li {
     height: auto;
     margin-bottom: 10px;
 }
+
+@media screen and (max-width: 767px) {
+    .left-confidential, .right-confidential {
+        display: none;
+    }
+}
