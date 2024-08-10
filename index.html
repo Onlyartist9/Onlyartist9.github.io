@@ -78,6 +78,8 @@
             flex-grow: 1.5;
             padding: 10px;
             background-color: #000000;
+            border-right: 1px solid #d9442d;
+            overflow: hidden;
         }
         .extra-sidebar {
             width: 200px;
@@ -256,6 +258,7 @@
 
             statsButton.addEventListener('click', () => {
                 extraSidebar.classList.toggle('hidden');
+                document.querySelector('.content').classList.toggle('hidden'); // Hide the content
             });
 
             const buildButton = extraSidebar.querySelector('li:nth-child(1)');
@@ -421,6 +424,8 @@
             const projectsButton = document.querySelector('.sidebar li:nth-child(2)');
 
             projectsButton.addEventListener('click', () => {
+                extraSidebar.classList.add('hidden');
+                document.querySelector('.content').classList.remove('hidden'); // Show the content
                 clearContent();
                 const content = document.querySelector('.content');
                 content.innerHTML = `
@@ -436,6 +441,8 @@
             // Contact section
             const contactButton = document.querySelector('.sidebar li:nth-child(3)');
             contactButton.addEventListener('click', () => {
+                extraSidebar.classList.add('hidden');
+                document.querySelector('.content').classList.remove('hidden'); // Show the content
                 clearContent();
                 const content = document.querySelector('.content');
                 content.innerHTML = `
@@ -452,6 +459,8 @@
             // Influences and Beliefs
             const thoughtsButton = document.querySelector('.sidebar li:nth-child(4)');
             thoughtsButton.addEventListener('click', () => {
+                extraSidebar.classList.add('hidden');
+                document.querySelector('.content').classList.remove('hidden'); // Show the content
                 clearContent();
                 const content = document.querySelector('.content');
                 content.innerHTML = `
