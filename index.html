@@ -1,518 +1,846 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samuel Gyamfi</title>
+    <meta name="description" content="Investigation file: Samuel Gyamfi builds AI systems, writes about intelligent systems, and works on niche machine learning applications.">
+    <meta property="og:title" content="Samuel Gyamfi | Investigation File">
+    <meta property="og:description" content="A portfolio presented as an active investigation dossier.">
+    <meta property="og:type" content="website">
+    <title>Samuel Gyamfi | Investigation File</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #070707;
+            --panel: rgba(11, 11, 11, 0.88);
+            --panel-strong: rgba(15, 15, 15, 0.96);
+            --text: #f2dccb;
+            --muted: #c4a893;
+            --signal: #ff6b3d;
+            --signal-soft: rgba(255, 107, 61, 0.18);
+            --line: rgba(255, 107, 61, 0.38);
+            --line-strong: rgba(255, 107, 61, 0.75);
+            --success: #9fd8b8;
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Kode Mono', sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #000000;
-            color: #d9442d;
+            min-height: 100vh;
+            font-family: "Kode Mono", monospace;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top, rgba(255, 107, 61, 0.12), transparent 30%),
+                linear-gradient(180deg, #0a0a0a 0%, #050505 48%, #090909 100%);
+            position: relative;
+            overflow-x: hidden;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #000000;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: relative; /* Added to position the images relative to the container */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 3px;
+            opacity: 0.12;
+            pointer-events: none;
         }
+
         a {
-            color: #d9442d;
-            text-decoration: underline;
-            font-weight: bold;
+            color: var(--text);
+            text-decoration-color: var(--signal);
+            text-underline-offset: 0.2rem;
         }
-        h1 {
-            font-size: 24px;
-            color: #d9442d;
-            border: 2px solid #d9442d;
-            padding: 10px;
-            text-align: center;
+
+        a:hover,
+        a:focus-visible {
+            color: var(--signal);
         }
-        p, ul, li {
-            font-size: 16px;
-            color: #d9442d;
+
+        img {
+            display: block;
+            max-width: 100%;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
+
+        .frame {
+            position: relative;
+            width: min(1160px, calc(100% - 2rem));
+            margin: 0 auto;
+            padding: 2rem 0 4rem;
         }
-        ul li::before {
-            content: "-> ";
-            color: #f57a29;
-        }
-        .about {
-            border: 2px solid #d9442d;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-        .file-system {
-            display: flex;
-            border: 2px solid #d9442d;
-        }
-        .sidebar {
-            width: 200px;
-            background-color: #000000;
-            padding: 10px;
-            border-right: 2px solid #d9442d;
-        }
-        .sidebar li {
-            margin-bottom: 10px;
-            padding: 10px;
-            cursor: pointer;
-            border-bottom: 1px solid #d9442d;
-        }
-        li {
-            padding: 10px;
-        }
-        .sidebar li:hover {
-            color: #f57a29;
-        }
-        .content {
-            flex-grow: 1.5;
-            padding: 10px;
-            background-color: #000000;
-            border-right: 1px solid #d9442d;
-            overflow: hidden;
-        }
-        .extra-sidebar {
-            width: 200px;
-            background-color: #000000;
-            padding: 10px;
-            border-right: 2px solid #d9442d;
-            cursor: pointer;
-        }
-        .extra-sidebar li:hover {
-            color: #f57a29;
-        }
-        .hidden {
-            display: none;
-        }
-        .chart-container {
-            width: 100%;
-            height: 300px;
-        }
-        .icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
-        #linkedin-icon {
-            fill: #d9442d; /* Default color */
-            width: 24px;
-            height: 24px;
-            transition: fill 0.3s ease;
-        }
-        #linkedin-icon:hover {
-            fill: #f57a29; /* Hover color */
-        }
-        #email-icon {
-            fill: #d9442d; /* Default color */
-            width: 24px;
-            height: 24px;
-            transition: fill 0.3s ease;
-        }
-        #email-icon:hover {
-            fill: #f57a29; /* Hover color */
-        }
-        #goodreads-icon {
-            fill: #d9442d; /* Default color */
-            width: 24px;
-            height: 24px;
-            transition: fill 0.3s ease;
-        }
-        #goodreads-icon:hover {
-            fill: #f57a29; /* Hover color */
-        }
-        .left-confidential, .right-confidential {
+
+        .classified-rail {
             position: fixed;
             top: 0;
             bottom: 0;
-            width: 100px; /* Adjust the width as needed */
-        }
-        .left-confidential {
-            left: 30px; /* Position the image to the left of the container */
-        }
-        .right-confidential {
-            right:30px; /* Position the image to the right of the container */
-        }
-        .side-image {
-            width: 100%;
-            height: auto;
-            margin-bottom: 10px;
+            width: 92px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            opacity: 0.72;
+            pointer-events: none;
         }
 
-        @media screen and (max-width: 767px) {
-            .left-confidential, .right-confidential {
-                display: none;
+        .classified-rail--left {
+            left: 1.25rem;
+        }
+
+        .classified-rail--right {
+            right: 1.25rem;
+        }
+
+        .classified-rail img {
+            flex: 1;
+            min-height: 0;
+            object-fit: contain;
+            filter: brightness(0.82) saturate(0.95);
+            animation: warning-blip 3.1s steps(1, end) infinite;
+        }
+
+        .classified-rail img:nth-child(2) {
+            animation-delay: 0.45s;
+        }
+
+        .classified-rail img:nth-child(3) {
+            animation-delay: 1.2s;
+        }
+
+        .classified-rail img:nth-child(4) {
+            animation-delay: 1.8s;
+        }
+
+        .classified-rail--right img:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .classified-rail--right img:nth-child(2) {
+            animation-delay: 0.9s;
+        }
+
+        .classified-rail--right img:nth-child(3) {
+            animation-delay: 1.55s;
+        }
+
+        .classified-rail--right img:nth-child(4) {
+            animation-delay: 2.2s;
+        }
+
+        @keyframes warning-blip {
+            0%, 11%, 17%, 68%, 100% {
+                filter: brightness(0.82) saturate(0.95);
+                opacity: 0.72;
+            }
+
+            12%, 16%, 69% {
+                filter: brightness(1.45) saturate(1.2) drop-shadow(0 0 14px rgba(255, 107, 61, 0.38));
+                opacity: 1;
             }
         }
 
-        /* Custom window styles */
-        .custom-window {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 400px;
-            padding: 20px;
-            background-color: #000000;
-            border: 2px solid #d9442d;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            color: #d9442d;
+        .topbar,
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
         }
 
-        .custom-window-header {
+        .topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid #d9442d;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
+            gap: 1rem;
+            padding: 0.9rem 1.1rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.77rem;
         }
 
-        .custom-window-content {
-            font-size: 16px;
-            color: #d9442d;
+        .topbar__group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
         }
 
-        .close-button {
-            background: none;
-            border: none;
+        .status-pill,
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.35rem 0.6rem;
+            border: 1px solid var(--line);
+            background: rgba(255, 107, 61, 0.08);
+            color: var(--text);
+        }
+
+        .status-pill::before {
+            content: "";
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 999px;
+            background: var(--success);
+            box-shadow: 0 0 12px rgba(159, 216, 184, 0.55);
+        }
+
+        .hero {
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.95fr);
+            gap: 1rem;
+        }
+
+        .eyebrow,
+        .section-label,
+        .kicker {
+            color: var(--signal);
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 0.75rem;
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .headline {
+            margin-top: 0.7rem;
+            max-width: 12ch;
+            font-size: clamp(2.8rem, 7vw, 5.3rem);
+            line-height: 0.92;
+            text-transform: uppercase;
+        }
+
+        .headline em {
+            display: block;
+            font-family: "Instrument Serif", serif;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--signal);
+            text-transform: none;
+        }
+
+        .summary {
+            max-width: 63ch;
+            margin: 1rem 0 0;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 0.96rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.25rem;
+        }
+
+        .button-link,
+        .nav-button {
+            border: 1px solid var(--line);
+            background: rgba(255, 107, 61, 0.08);
+            color: var(--text);
+            font: inherit;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
             cursor: pointer;
+            transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.2s ease;
         }
 
-        .chart-container {
+        .button-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 1rem;
+            text-decoration: none;
+        }
+
+        .button-link:hover,
+        .button-link:focus-visible,
+        .nav-button:hover,
+        .nav-button:focus-visible,
+        .nav-button[aria-selected="true"] {
+            background: rgba(255, 107, 61, 0.16);
+            border-color: var(--line-strong);
+            color: var(--signal);
+            transform: translateY(-1px);
+        }
+
+        .hero-aside {
+            display: grid;
+            gap: 0.9rem;
+        }
+
+        .info-card {
+            padding: 1rem;
+            border: 1px solid var(--line);
+            background: linear-gradient(180deg, rgba(255, 107, 61, 0.08), rgba(255, 107, 61, 0.03));
+        }
+
+        .info-card p {
+            margin: 0.65rem 0 0;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.92rem;
+        }
+
+        .record-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+        }
+
+        .record {
+            padding: 0.85rem;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        .record dt {
+            color: var(--signal);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.7rem;
+        }
+
+        .record dd {
+            margin: 0.5rem 0 0;
+            line-height: 1.55;
+            color: var(--text);
+            font-size: 0.92rem;
+        }
+
+        .workspace {
+            display: grid;
+            grid-template-columns: 250px minmax(0, 1fr);
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .nav-panel {
+            position: sticky;
+            top: 1rem;
+            padding: 1rem;
+        }
+
+        .nav-list {
+            display: grid;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+
+        .nav-button {
             width: 100%;
-            height: 300px;
+            padding: 0.9rem;
+            text-align: left;
         }
 
+        .main-panel {
+            min-height: 540px;
+            padding: 1.2rem;
+        }
+
+        .content-panel {
+            display: none;
+            animation: reveal 0.35s ease;
+        }
+
+        .content-panel.active {
+            display: block;
+        }
+
+        @keyframes reveal {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: end;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .section-heading p {
+            margin: 0.6rem 0 0;
+            max-width: 64ch;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.92rem;
+        }
+
+        .case-list,
+        .brief-list,
+        .link-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .case-card,
+        .brief-card {
+            border: 1px solid var(--line);
+            background: var(--panel-strong);
+            padding: 1rem;
+        }
+
+        .case-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .case-card h3,
+        .brief-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.65rem;
+        }
+
+        .case-card p,
+        .brief-card p,
+        .link-list li {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 0.93rem;
+        }
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .evidence-card {
+            padding: 1rem;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .evidence-card strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .evidence-card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.9rem;
+        }
+
+        .research-links,
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            margin-top: 1rem;
+        }
+
+        .link-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.7rem 0.85rem;
+            border: 1px solid var(--line);
+            background: rgba(255, 107, 61, 0.05);
+            text-decoration: none;
+        }
+
+        .link-chip:hover,
+        .link-chip:focus-visible {
+            border-color: var(--line-strong);
+        }
+
+        .link-chip img {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .redacted {
+            display: inline-block;
+            padding: 0.08rem 0.35rem;
+            background: var(--text);
+            color: #000;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+        }
+
+        .link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .link-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 107, 61, 0.12);
+        }
+
+        .link-list li:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 1100px) {
+            .classified-rail {
+                display: none;
+            }
+
+            .frame {
+                width: min(100% - 1.2rem, 980px);
+            }
+        }
+
+        @media (max-width: 860px) {
+            .hero-grid,
+            .workspace,
+            .evidence-grid,
+            .record-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-panel {
+                position: static;
+            }
+
+            .section-heading {
+                align-items: start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .frame {
+                width: calc(100% - 1rem);
+                padding-top: 0.5rem;
+            }
+
+            .topbar,
+            .hero,
+            .nav-panel,
+            .main-panel {
+                padding: 0.95rem;
+            }
+
+            .headline {
+                max-width: none;
+            }
+
+            .hero-actions,
+            .research-links,
+            .contact-links {
+                flex-direction: column;
+            }
+
+            .button-link,
+            .link-chip {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-
-            // Anime js script.
-            anime({
-                targets: '#MyName',
-                borderColor: ['#d9442d', '#f57a29'],
-                duration: 200,
-                loop: true,
-                easing: 'linear'
-            });
-
-
-            // Define the animation function for left images
-            anime({
-                targets: '.left-confidential .side-image',
-                translateY: [window.innerHeight, -window.innerHeight], // Move from bottom to top
-                loop: true,
-                easing: 'linear',
-                duration: 10000, // Duration of one loop in milliseconds
-            });
-
-            // Define the animation function for right images
-            anime({
-                targets: '.right-confidential .side-image',
-                translateY: [-window.innerHeight, window.innerHeight], // Move from top to bottom
-                loop: true,
-                easing: 'linear',
-                duration: 10000, // Duration of one loop in milliseconds
-            });
-
-            // Creating flashing effect for the confidential images.
-            anime({
-                targets: '.side-image',
-                backgroundColor: ['#000000', '#f57a29'], // Transition from black to #f57a29
-                loop: true,
-                easing: 'easeInOutQuad',
-                duration: 1000, // Duration of one loop in milliseconds
-                direction: 'alternate' // Alternate between the colors
-            });
-
-
-            // Dom manipulation of the Stats information.
-            const statsButton = document.querySelector('.sidebar li:nth-child(1)');
-
-            const extraSidebar = document.createElement('div');
-
-            extraSidebar.classList.add('extra-sidebar', 'hidden');
-
-            extraSidebar.innerHTML = `
-                <ul>
-                    <li>Build</li>
-                    <li>Personality</li>
-                </ul>
-            `;
-
-            document.querySelector('.file-system').insertBefore(extraSidebar, document.querySelector('.content'));
-
-            statsButton.addEventListener('click', () => {
-                extraSidebar.classList.toggle('hidden');
-                document.querySelector('.content').classList.toggle('hidden'); // Hide the content
-            });
-
-            const buildButton = extraSidebar.querySelector('li:nth-child(1)');
-            const personalityButton = extraSidebar.querySelector('li:nth-child(2)');
-            const skillTreeButton = extraSidebar.querySelector('li:nth-child(3)');
-
-            let chartInstance = null;
-
-            function clearContent() {
-                if (chartInstance) chartInstance.destroy();
-            }
-
-            function createChart(type, data, options, container) {
-                clearContent();
-                const ctx = document.createElement('canvas');
-                container.appendChild(ctx);
-                chartInstance = new Chart(ctx, { type, data, options });
-            }
-
-            function createCustomWindow(title, chartType, chartData, chartOptions) {
-                const customWindow = document.createElement('div');
-                customWindow.classList.add('custom-window');
-                customWindow.innerHTML = `
-                    <div class="custom-window-header">
-                        <h2>${title}</h2>
-                        <button class="close-button">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M18 6L6 18" stroke="#d9442d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M6 6L18 18" stroke="#d9442d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="custom-window-content">
-                        <div class="chart-container"></div>
-                    </div>
-                `;
-                document.body.appendChild(customWindow);
-
-                const closeButton = customWindow.querySelector('.close-button');
-                closeButton.addEventListener('click', () => {
-                    document.body.removeChild(customWindow);
-                });
-
-                const chartContainer = customWindow.querySelector('.chart-container');
-                createChart(chartType, chartData, chartOptions, chartContainer);
-            }
-
-            buildButton.addEventListener('click', () => {
-                const data = {
-                    labels: ['Intelligence', 'Wisdom', 'Dexterity', 'Constitution', 'Charisma', 'Strength'],
-                    datasets: [{
-                        label: 'Temperament',
-                        data: [142, 148, 120, 105, 130, 135],
-                        backgroundColor: 'rgba(217, 68, 45, 0.2)',
-                        borderColor: '#f57a29',
-                        pointBackgroundColor: '#d9442d',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: '#d9442d'
-                    }]
-                };
-                const options = {
-                    scales: {
-                        r: {
-                            ticks: {
-                                display: false,
-                            },
-                            animate: true,
-                            startAngle: 0,
-                            grid: {
-                                display: true,
-                                color: '#f57a29',
-                                lineWidth: 2,
-                            },
-                            angleLines: {
-                                display: true,
-                                color: '#f57a29',
-                                lineWidth: 2,
-                            },
-                            pointLabels: {
-                                color: '#d9442d',
-                            },
-                            beginAtZero: true,
-                            hover: {
-                                mode: 'nearest',
-                                intersect: true,
-                                onHover: function(event, chartElement) {
-                                    if (chartElement.length) {
-                                        event.target.style.cursor = 'pointer';
-                                    } else {
-                                        event.target.style.cursor = 'default';
-                                    }
-                                }
-                            },
-                            tooltips: {
-                                enabled: false
-                            },
-                        },
-                    },
-                };
-                createCustomWindow('Build', 'radar', data, options);
-            });
-
-            personalityButton.addEventListener('click', () => {
-                const data = {
-                    labels: ['Extraversion', 'Openness', 'Agreeableness', 'Conscientiousness', 'Neuroticism'],
-                    datasets: [{
-                        label: 'Personality Traits',
-                        data: [54, 98, 21, 61, 1],
-                        backgroundColor: '#f57a29',
-                        borderColor: '#d9442d',
-                        borderWidth: 1
-                    }]
-                };
-                const options = {
-                    indexAxis: 'y',
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            max: 100,
-                            grid: {
-                                color: '#f57a29',
-                                lineWidth: 2
-                            },
-                            ticks: {
-                                color: '#d9442d'
-                            }
-                        },
-                        y: {
-                            grid: {
-                                color: '#f57a29',
-                                lineWidth: 2
-                            },
-                            ticks: {
-                                color: '#d9442d'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            enabled: false
-                        }
-                    },
-                    hover: {
-                        mode: 'nearest',
-                        intersect: true,
-                        onHover: function(event, chartElement) {
-                            if (chartElement.length) {
-                                event.target.style.cursor = 'pointer';
-                            } else {
-                                event.target.style.cursor = 'default';
-                            }
-                        }
-                    }
-                };
-                createCustomWindow('Personality', 'bar', data, options);
-            });
-
-            // Projects section
-            const projectsButton = document.querySelector('.sidebar li:nth-child(2)');
-
-            projectsButton.addEventListener('click', () => {
-                extraSidebar.classList.add('hidden');
-                document.querySelector('.content').classList.remove('hidden'); // Show the content
-                clearContent();
-                const content = document.querySelector('.content');
-                content.innerHTML = `
-                    <h3>Work</h3>
-                    <ul>
-                        <li><strong>Synthetic Data For Niche Use Cases:</strong> Samuel is building datasets and training models for niche machine learning use cases.You can find more about it <a href="https://huggingface.co/tabularisai" target="_blank"> here.</a></li>
-                        <li><strong>The Variety Engine:</strong> Samuel writes a blog about intelligent systems and their impact on the world today and in the near future. You can find more about it <a href="https://varietyengine.substack.com/about" target="_blank"> here.</a></li>
-                    </ul>
-                `;
-            });
-
-            // Contact section
-            const contactButton = document.querySelector('.sidebar li:nth-child(3)');
-            contactButton.addEventListener('click', () => {
-                extraSidebar.classList.add('hidden');
-                document.querySelector('.content').classList.remove('hidden'); // Show the content
-                clearContent();
-                const content = document.querySelector('.content');
-                content.innerHTML = `
-                    <h3>Where you can find him:</h3>
-                    <ul>
-                        <li><img src="linkedin-icon.svg" class="icon" alt="LinkedIn"> <a href="https://www.linkedin.com/in/samuel-n-t-a-g-946584246" target="_blank">LinkedIn</a></li>
-                        <li><img src="email-icon.svg" class="icon" alt="Email"> <a href="mailto:gyamfisamuel10@gmail.com">Email</a></li>
-                        <li><img src="goodreads-icon.svg" class="icon" alt="Goodreads"> <a href="https://www.goodreads.com/samuelgyamfi" target="_blank">Goodreads</a></li>
-                        <li><img src="github.svg" class="icon" alt="Github"> <a href="https://www.github.com/onlyartist9" target="_blank">Github</a></li>
-                    </ul>
-                `;
-            });            
-
-            // Influences and Beliefs
-            const thoughtsButton = document.querySelector('.sidebar li:nth-child(4)');
-            thoughtsButton.addEventListener('click', () => {
-                extraSidebar.classList.add('hidden');
-                document.querySelector('.content').classList.remove('hidden'); // Show the content
-                clearContent();
-                const content = document.querySelector('.content');
-                content.innerHTML = `
-                    <h4>Inspiration:</h4>
-                    <ul>
-                        <li>Anime and Fiction more broadly. His website seems to draw inspiration from <a href="https://www.youtube.com/watch?v=k0oQr7ZVtBQ" target="_blank">the UI design in Neon Genesis Evangelion</a>. Indulgence in fiction is how he spends his leisure time.</li>
-                        <li>He spends a lot of time reading blogs, and writings from all over the internet and by various brilliant people. He occassionally visits <a href="https://www.lesswrong.com/posts/XvN2QQpKTuEzgkZHY/being-the-pareto-best-in-the-world" target="_blank">LessWrong</a>,reads the blog of Renowned Mathematician <a href="https://terrytao.wordpress.com/career-advice/work-hard/" target="_blank">Terence Tao</a>, gets advice on entrepreneurship from <a href="https://www.paulgraham.com/articles.html" target="_blank">Paul Graham</a> or satiates his curiousity on productivity, cryptography, and other niche topics with <a href="https://gwern.net/index" target="_blank">Gwern's blog</a>. When he's not reading he might be listening to <a href="https://darknetdiaries.com/">DarkNet Diaries</a>. </li>
-                        <li>He's inspired by <a href="https://en.wikipedia.org/wiki/Jensen_Huang" target="_blank">Jensen Huang</a> and his relentlessness and thinks he's the greatest entrepreneur alive.</li>
-                    </ul>
-                    <h4>Beliefs:</h4>
-                    <ul>
-                        <li>The subject believes that persistence overcomes all barriers- that the only real constraints on human ambition are energy and time and that these constraints are surprisingly far looser than one may imagine. He believes focus, direction and agency are in limited supply and even more limited demand.</li>
-                    </ul>
-                `;
-            });   
-        });
-    </script>
 </head>
 <body>
+    <aside class="classified-rail classified-rail--left" aria-hidden="true">
+        <img src="Confidential Upwords.svg" alt="">
+        <img src="Confidential Upwords.svg" alt="">
+        <img src="Confidential Upwords.svg" alt="">
+        <img src="Confidential Upwords.svg" alt="">
+    </aside>
 
-    <div class="left-confidential">
-        <img src="Confidential Upwords.svg" alt="Confidential Banner" class="side-image" id="leftImage1">
-        <img src="Confidential Upwords.svg" alt="Confidential Banner" class="side-image" id="leftImage2">
-        <img src="Confidential Upwords.svg" alt="Confidential Banner" class="side-image" id="leftImage3">
-        <img src="Confidential Upwords.svg" alt="Confidential Banner" class="side-image" id="leftImage4">
-    </div>
+    <aside class="classified-rail classified-rail--right" aria-hidden="true">
+        <img src="Confidential Downwards.svg" alt="">
+        <img src="Confidential Downwards.svg" alt="">
+        <img src="Confidential Downwards.svg" alt="">
+        <img src="Confidential Downwards.svg" alt="">
+    </aside>
 
-    <div class="right-confidential">
-        <img src="Confidential Downwards.svg" alt="Confidential Banner" class="side-image" id="rightImage1">
-        <img src="Confidential Downwards.svg" alt="Confidential Banner" class="side-image" id="rightImage2">
-        <img src="Confidential Downwards.svg" alt="Confidential Banner" class="side-image" id="rightImage3">
-        <img src="Confidential Downwards.svg" alt="Confidential Banner" class="side-image" id="rightImage4">
-    </div>
-
-    <div class="container">
-        <h1 id="MyName">Samuel Gyamfi</h1>
-        <div class="about">
-            <h2>Profile:</h1>
-            <p>Samuel has a deep passion for understanding the ideas and concepts that move the world around, the ideas not yet adequately utilized, and the use of said ideas for the betterment of humanity. His interests include but are not limited to Technology, Entrepreneurship, Economics, Finance, Decision Theory, Cognitive Science and Art. He is an AI researcher at Tabularis.</p>
-        </div>
-        <div class="file-system">
-            <div class="sidebar">
-                <ul>
-                    <li>Stats</li>
-                    <li>Projects</li>
-                    <li>Contact</li>
-                    <li>Influences and Beliefs</li>
-                </ul>
+    <div class="frame">
+        <header class="topbar panel" aria-label="Case metadata">
+            <div class="topbar__group">
+                <span class="status-pill">File Active</span>
+                <span>Case ID: SG-091</span>
             </div>
-            <div class="content">
-                <!-- Content for each category will go here-->
+            <div class="topbar__group">
+                <span>Review Status: Ongoing</span>
+                <span class="tag">Clearance: Restricted</span>
             </div>
+        </header>
+
+        <section class="hero panel">
+            <div class="hero-grid">
+                <div>
+                    <div class="eyebrow">Recovered Investigation File</div>
+                    <h1 class="headline">Samuel Gyamfi <em>Subject of Interest</em></h1>
+                    <p class="summary">
+                        Investigators report repeated involvement in AI systems, synthetic data pipelines, and writing about intelligent systems.
+                        Subject shows a consistent preference for high-agency work, niche technical domains, and low tolerance for institutional drag.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="button-link js-open-panel" href="#casework" data-target="operations">Open Operations Log</a>
+                        <a class="button-link" href="mailto:gyamfisamuel10@gmail.com">Open Secure Channel</a>
+                    </div>
+                </div>
+                <aside class="hero-aside" aria-label="Summary cards">
+                    <div class="info-card">
+                        <div class="section-label">Primary Assessment</div>
+                        <p>Builds AI systems and research artifacts with an emphasis on useful outcomes over ornamental process.</p>
+                    </div>
+                    <div class="record-grid">
+                        <dl class="record">
+                            <dt>Occupation</dt>
+                            <dd>AI Researcher at Tabularis</dd>
+                        </dl>
+                        <dl class="record">
+                            <dt>Focus</dt>
+                            <dd>Synthetic data, low-resource NLP, intelligent systems</dd>
+                        </dl>
+                        <dl class="record">
+                            <dt>Operating Pattern</dt>
+                            <dd>Independent execution with research-to-deployment bias</dd>
+                        </dl>
+                        <dl class="record">
+                            <dt>Known Weakness</dt>
+                            <dd>Low patience for bureaucracy and ornamental structure</dd>
+                        </dl>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <div class="workspace">
+            <nav class="nav-panel panel" aria-label="Investigation sections">
+                <div class="kicker">Navigation</div>
+                <div class="nav-list" role="tablist" aria-orientation="vertical">
+                    <button class="nav-button" type="button" role="tab" aria-selected="true" aria-controls="overview" id="tab-overview" data-target="overview">Case Summary</button>
+                    <button class="nav-button" type="button" role="tab" aria-selected="false" aria-controls="operations" id="tab-operations" data-target="operations">Known Operations</button>
+                    <button class="nav-button" type="button" role="tab" aria-selected="false" aria-controls="research" id="tab-research" data-target="research">Research Archive</button>
+                    <button class="nav-button" type="button" role="tab" aria-selected="false" aria-controls="signals" id="tab-signals" data-target="signals">Behavioral Signals</button>
+                    <button class="nav-button" type="button" role="tab" aria-selected="false" aria-controls="contact" id="tab-contact" data-target="contact">Secure Contact</button>
+                </div>
+            </nav>
+
+            <main class="main-panel panel">
+                <section class="content-panel active" id="overview" role="tabpanel" aria-labelledby="tab-overview">
+                    <div class="section-heading">
+                        <div>
+                            <div class="section-label">Case Summary</div>
+                            <h2>Analyst Notes</h2>
+                        </div>
+                        <span class="tag">Signal Strength: High</span>
+                    </div>
+
+                    <div class="brief-list">
+                        <article class="brief-card">
+                            <h3>Observed Strengths</h3>
+                            <p>Rapid synthesis across research, engineering, and communication. Comfortable operating in ambiguous technical environments. Strong taste for work that compounds rather than performs.</p>
+                        </article>
+                        <article class="brief-card">
+                            <h3>Current Thesis</h3>
+                            <p>Machine intelligence becomes more useful when it is grounded in scarce data, unusual contexts, and rigorous evaluation. The edge is not in generic scale alone, but in choosing the right neglected problems.</p>
+                        </article>
+                    </div>
+
+                    <div class="evidence-grid">
+                        <article class="evidence-card">
+                            <strong>Machine Learning</strong>
+                            <p>Synthetic data generation, model evaluation, and applied work around niche use cases.</p>
+                        </article>
+                        <article class="evidence-card">
+                            <strong>Research Output</strong>
+                            <p>Published work on low-resource Swahili sentiment analysis with multi-LLM judging and human validation.</p>
+                        </article>
+                        <article class="evidence-card">
+                            <strong>Writing</strong>
+                            <p>Produces public writing on intelligent systems, technology, and second-order consequences.</p>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="content-panel" id="operations" role="tabpanel" aria-labelledby="tab-operations">
+                    <div class="section-heading" id="casework">
+                        <div>
+                            <div class="section-label">Known Operations</div>
+                            <h2>Field Activity</h2>
+                        </div>
+                    </div>
+
+                    <div class="case-list">
+                        <article class="case-card">
+                            <div class="case-meta">
+                                <span class="tag">Operation 01</span>
+                                <span class="tag">Synthetic Data</span>
+                                <span class="tag">Machine Learning</span>
+                            </div>
+                            <h3>Synthetic Data For Niche Use Cases</h3>
+                            <p>Built datasets and training workflows for machine learning problems where off-the-shelf data quality is inadequate. The emphasis is controllability: constructing data that fits the problem rather than forcing the problem to fit generic corpora.</p>
+                            <div class="research-links">
+                                <a class="link-chip" href="https://huggingface.co/tabularisai" target="_blank" rel="noopener noreferrer">View Hugging Face</a>
+                            </div>
+                        </article>
+
+                        <article class="case-card">
+                            <div class="case-meta">
+                                <span class="tag">Operation 02</span>
+                                <span class="tag">Writing</span>
+                                <span class="tag">Analysis</span>
+                            </div>
+                            <h3>The Variety Engine</h3>
+                            <p>A writing project focused on intelligent systems and their likely effects on the world. Useful as both a public thinking log and a way to make technical judgment visible outside code and papers.</p>
+                            <div class="research-links">
+                                <a class="link-chip" href="https://varietyengine.substack.com/about" target="_blank" rel="noopener noreferrer">Read Publication</a>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="content-panel" id="research" role="tabpanel" aria-labelledby="tab-research">
+                    <div class="section-heading">
+                        <div>
+                            <div class="section-label">Research Archive</div>
+                            <h2>Published Material</h2>
+                        </div>
+                        <span class="tag">Archive Count: 01</span>
+                    </div>
+
+                    <article class="case-card">
+                        <div class="case-meta">
+                            <span class="tag">AfricaNLP 2026</span>
+                            <span class="tag">ACL Anthology</span>
+                            <span class="tag">Pages 116-141</span>
+                        </div>
+                        <h3>Synthetic Data Generation Pipeline for Low-Resource Swahili Sentiment Analysis: Multi-LLM Judging with Human Validation</h3>
+                        <p>This paper addresses a familiar failure mode in NLP: high-utility languages remain under-resourced because the tooling ecosystem assumes abundant labeled data. The work introduces a controllable synthetic data pipeline for Swahili sentiment analysis, uses automated LLM judges for quality assessment, and validates the generated labels with targeted human review.</p>
+                        <div class="research-links">
+                            <a class="link-chip" href="https://aclanthology.org/2026.africanlp-main.12/" target="_blank" rel="noopener noreferrer">ACL Anthology Entry</a>
+                            <a class="link-chip" href="https://aclanthology.org/2026.africanlp-main.12.pdf" target="_blank" rel="noopener noreferrer">Open PDF</a>
+                            <a class="link-chip" href="https://doi.org/10.18653/v1/2026.africanlp-main.12" target="_blank" rel="noopener noreferrer">DOI</a>
+                            <a class="link-chip" href="https://huggingface.co/datasets/tabularisai/swahili-sentiment-dataset" target="_blank" rel="noopener noreferrer">Dataset</a>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="content-panel" id="signals" role="tabpanel" aria-labelledby="tab-signals">
+                    <div class="section-heading">
+                        <div>
+                            <div class="section-label">Behavioral Signals</div>
+                            <h2>Interpreting the Subject</h2>
+                        </div>
+                    </div>
+
+                    <div class="brief-list">
+                        <article class="brief-card">
+                            <h3>Disposition</h3>
+                            <p>High-agency, suspicious of process for its own sake, and drawn to technically meaningful work with compounding value.</p>
+                        </article>
+                        <article class="brief-card">
+                            <h3>Intellectual Influences</h3>
+                            <p>Anime and fiction, mathematical writing, startup essays, and technical blogs. The recurring pattern is not fandom but attraction to systems, leverage, and disciplined ambition.</p>
+                        </article>
+                        <article class="brief-card">
+                            <h3>Institutional Assessment</h3>
+                            <p>Suitable for environments where independence is an asset. Less suitable for organizations that mistake procedure for competence. <span class="redacted">Predictable consequence</span>: the right constraints improve output; decorative constraints degrade it.</p>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="content-panel" id="contact" role="tabpanel" aria-labelledby="tab-contact">
+                    <div class="section-heading">
+                        <div>
+                            <div class="section-label">Secure Contact</div>
+                            <h2>Communication Channels</h2>
+                        </div>
+                    </div>
+
+                    <div class="contact-links">
+                        <a class="link-chip" href="mailto:gyamfisamuel10@gmail.com">
+                            <img src="email-icon.svg" alt="">
+                            <span>Email</span>
+                        </a>
+                        <a class="link-chip" href="https://www.linkedin.com/in/samuel-n-t-a-g-946584246" target="_blank" rel="noopener noreferrer">
+                            <img src="linkedin-icon.svg" alt="">
+                            <span>LinkedIn</span>
+                        </a>
+                        <a class="link-chip" href="https://www.github.com/onlyartist9" target="_blank" rel="noopener noreferrer">
+                            <img src="github.svg" alt="">
+                            <span>GitHub</span>
+                        </a>
+                        <a class="link-chip" href="https://www.goodreads.com/samuelgyamfi" target="_blank" rel="noopener noreferrer">
+                            <img src="goodreads-icon.svg" alt="">
+                            <span>Goodreads</span>
+                        </a>
+                    </div>
+
+                    <ul class="link-list">
+                        <li>Email remains the cleanest route for work, research, and collaboration inquiries.</li>
+                        <li>GitHub is the best place to inspect implementation habits.</li>
+                        <li>LinkedIn is the bureaucratically acceptable fallback.</li>
+                    </ul>
+                </section>
+            </main>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const buttons = Array.from(document.querySelectorAll(".nav-button"));
+            const panels = Array.from(document.querySelectorAll(".content-panel"));
+            const openPanelLinks = Array.from(document.querySelectorAll(".js-open-panel"));
+
+            function setActivePanel(targetId) {
+                buttons.forEach((button) => {
+                    const isActive = button.dataset.target === targetId;
+                    button.setAttribute("aria-selected", String(isActive));
+                });
+
+                panels.forEach((panel) => {
+                    panel.classList.toggle("active", panel.id === targetId);
+                });
+            }
+
+            buttons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    setActivePanel(button.dataset.target);
+                });
+            });
+
+            openPanelLinks.forEach((link) => {
+                link.addEventListener("click", () => {
+                    setActivePanel(link.dataset.target);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
