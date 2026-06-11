@@ -839,7 +839,7 @@
                 <aside class="hero-aside" aria-label="Summary cards">
                     <div class="info-card">
                         <div class="section-label">Primary Assessment</div>
-                        <p>Builds AI systems and research artifacts with an emphasis on useful outcomes over ornamental process. Hunts software for sport.</p>
+                        <p>Builds AI systems and research artifacts with an emphasis on useful outcomes over ornamental process. Breaches organizations for sport, then tells them how it was done.</p>
                     </div>
                     <div class="record-grid">
                         <dl class="record">
@@ -906,7 +906,7 @@
                         </article>
                         <article class="evidence-card">
                             <strong>Security Research</strong>
-                            <p>Active bug-bounty hunter. Currently ranked in the global Top 300 on Intigriti.</p>
+                            <p>Active bug-bounty hunter. Breaks live software on purpose and reports it through coordinated disclosure.</p>
                         </article>
                         <article class="evidence-card">
                             <strong>Writing</strong>
@@ -921,7 +921,7 @@
                             <div class="section-label">Known Operations</div>
                             <h2>Field Activity</h2>
                         </div>
-                        <span class="tag">Operations Logged: 03</span>
+                        <span class="tag">Operations Logged: <span id="ops-count">03</span></span>
                     </div>
 
                     <p class="pull-quote">&ldquo;Builds the system, then finds where it quietly fails.&rdquo;</p>
@@ -949,8 +949,8 @@
                             <h3>Adversarial Field Work</h3>
                             <p>Breaks software on purpose. Hunts vulnerabilities across live targets and reports them through coordinated disclosure, currently sitting in the global Top 300 on Intigriti. The same instinct that builds systems is used to find where they quietly fail. Current targets: <span class="redacted">Withheld</span>.</p>
                             <div class="research-links">
-                                <!-- TODO: swap href for Intigriti profile URL once available -->
-                                <span class="tag">Intigriti &middot; Top 300</span>
+                                <!-- TODO: replace redacted placeholder with Exhibit link to Intigriti profile once URL is available -->
+                                <span class="redacted">Researcher profile sealed</span>
                             </div>
                         </article>
 
@@ -975,7 +975,7 @@
                             <div class="section-label">Research Archive</div>
                             <h2>Published Material</h2>
                         </div>
-                        <span class="tag">Archive Count: 01</span>
+                        <span class="tag">Archive Count: <span id="archive-count">01</span></span>
                     </div>
 
                     <article class="case-card">
@@ -988,9 +988,9 @@
                         <p>This paper addresses a familiar failure mode in NLP: high-utility languages remain under-resourced because the tooling ecosystem assumes abundant labeled data. The work introduces a controllable synthetic data pipeline for Swahili sentiment analysis, uses automated LLM judges for quality assessment, and validates the generated labels with targeted human review.</p>
                         <div class="research-links">
                             <a class="link-chip" href="https://aclanthology.org/2026.africanlp-main.12/" target="_blank" rel="noopener noreferrer">Exhibit C &mdash; ACL Anthology</a>
-                            <a class="link-chip" href="https://aclanthology.org/2026.africanlp-main.12.pdf" target="_blank" rel="noopener noreferrer">Intercepted PDF</a>
-                            <a class="link-chip" href="https://doi.org/10.18653/v1/2026.africanlp-main.12" target="_blank" rel="noopener noreferrer">DOI Trace</a>
-                            <a class="link-chip" href="https://huggingface.co/datasets/tabularisai/swahili-sentiment-dataset" target="_blank" rel="noopener noreferrer">Seized Dataset</a>
+                            <a class="link-chip" href="https://aclanthology.org/2026.africanlp-main.12.pdf" target="_blank" rel="noopener noreferrer">Exhibit D &mdash; Intercepted PDF</a>
+                            <a class="link-chip" href="https://doi.org/10.18653/v1/2026.africanlp-main.12" target="_blank" rel="noopener noreferrer">Exhibit E &mdash; DOI Trace</a>
+                            <a class="link-chip" href="https://huggingface.co/datasets/tabularisai/swahili-sentiment-dataset" target="_blank" rel="noopener noreferrer">Exhibit F &mdash; Seized Dataset</a>
                         </div>
                     </article>
                 </section>
@@ -1026,7 +1026,7 @@
                     <div class="brief-list">
                         <article class="brief-card">
                             <h3>Disposition</h3>
-                            <p>High-agency, suspicious of process for its own sake, and drawn to technically meaningful work with compounding value. Disagreeable in the productive sense &mdash; will argue with the consensus when the consensus is wrong.</p>
+                            <p>High-agency and drawn to technically meaningful work with compounding value. Disagreeable in the productive sense &mdash; will argue with the consensus when the consensus is wrong.</p>
                         </article>
                         <article class="brief-card">
                             <h3>Inspiration</h3>
@@ -1059,7 +1059,7 @@
                             <div class="section-label">Secure Contact</div>
                             <h2>Communication Channels</h2>
                         </div>
-                        <span class="tag">Channels Verified: 04</span>
+                        <span class="tag">Channels Verified: <span id="channels-count">04</span></span>
                     </div>
 
                     <div class="contact-links">
@@ -1085,6 +1085,7 @@
                         <li>Email remains the cleanest route for work, research, and collaboration inquiries.</li>
                         <li>GitHub is the best place to inspect implementation habits.</li>
                         <li>LinkedIn is the bureaucratically acceptable fallback.</li>
+                        <li>Further channels <span class="redacted">redacted at subject's request</span>.</li>
                     </ul>
                 </section>
             </main>
@@ -1141,6 +1142,16 @@
             /* ---- File review stamp ---- */
             const reviewDate = document.getElementById("review-date");
             if (reviewDate) reviewDate.textContent = new Date().toISOString().slice(0, 10);
+
+            /* ---- Self-tallying file counters (kept in sync with the DOM) ---- */
+            const pad2 = (n) => String(n).padStart(2, "0");
+            const setCount = (id, selector) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = pad2(document.querySelectorAll(selector).length);
+            };
+            setCount("ops-count", "#operations .case-card");
+            setCount("archive-count", "#research .case-card");
+            setCount("channels-count", "#contact .contact-links .link-chip");
 
             /* ---- Chart palette ---- */
             const SIGNAL = "#ff6b3d";
