@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Investigation file: Samuel Gyamfi builds AI systems, writes about intelligent systems, and works on niche machine learning applications.">
+    <meta name="description" content="Investigation file: Samuel Gyamfi builds AI systems, does security research, writes about intelligent systems, and works on niche machine learning applications.">
     <meta property="og:title" content="Samuel Gyamfi | Investigation File">
     <meta property="og:description" content="A portfolio presented as an active investigation dossier.">
     <meta property="og:type" content="website">
@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --bg: #070707;
@@ -54,6 +55,7 @@
             background-size: 100% 3px;
             opacity: 0.12;
             pointer-events: none;
+            z-index: 1;
         }
 
         a {
@@ -74,22 +76,22 @@
 
         .frame {
             position: relative;
+            z-index: 2;
             width: min(1160px, calc(100% - 2rem));
             margin: 0 auto;
             padding: 2rem 0 4rem;
         }
 
+        /* ---- Animated CONFIDENTIAL rails (restored scrolling marquee) ---- */
         .classified-rail {
             position: fixed;
             top: 0;
             bottom: 0;
             width: 92px;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            padding: 0.75rem 0;
+            overflow: hidden;
             opacity: 0.72;
             pointer-events: none;
+            z-index: 0;
         }
 
         .classified-rail--left {
@@ -100,40 +102,45 @@
             right: 1.25rem;
         }
 
-        .classified-rail img {
-            flex: 1;
+        .rail-track {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            will-change: transform;
+        }
+
+        .classified-rail--left .rail-track {
+            animation: rail-scroll-up 26s linear infinite;
+        }
+
+        .classified-rail--right .rail-track {
+            animation: rail-scroll-down 26s linear infinite;
+        }
+
+        .rail-track img {
             min-height: 0;
             object-fit: contain;
             filter: brightness(0.82) saturate(0.95);
             animation: warning-blip 3.1s steps(1, end) infinite;
         }
 
-        .classified-rail img:nth-child(2) {
-            animation-delay: 0.45s;
+        .rail-track img:nth-child(2) { animation-delay: 0.45s; }
+        .rail-track img:nth-child(3) { animation-delay: 1.2s; }
+        .rail-track img:nth-child(4) { animation-delay: 1.8s; }
+        .rail-track img:nth-child(5) { animation-delay: 0.2s; }
+        .rail-track img:nth-child(6) { animation-delay: 0.9s; }
+        .rail-track img:nth-child(7) { animation-delay: 1.55s; }
+        .rail-track img:nth-child(8) { animation-delay: 2.2s; }
+
+        @keyframes rail-scroll-up {
+            from { transform: translateY(0); }
+            to { transform: translateY(-50%); }
         }
 
-        .classified-rail img:nth-child(3) {
-            animation-delay: 1.2s;
-        }
-
-        .classified-rail img:nth-child(4) {
-            animation-delay: 1.8s;
-        }
-
-        .classified-rail--right img:nth-child(1) {
-            animation-delay: 0.2s;
-        }
-
-        .classified-rail--right img:nth-child(2) {
-            animation-delay: 0.9s;
-        }
-
-        .classified-rail--right img:nth-child(3) {
-            animation-delay: 1.55s;
-        }
-
-        .classified-rail--right img:nth-child(4) {
-            animation-delay: 2.2s;
+        @keyframes rail-scroll-down {
+            from { transform: translateY(-50%); }
+            to { transform: translateY(0); }
         }
 
         @keyframes warning-blip {
@@ -145,6 +152,14 @@
             12%, 16%, 69% {
                 filter: brightness(1.45) saturate(1.2) drop-shadow(0 0 14px rgba(255, 107, 61, 0.38));
                 opacity: 1;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .rail-track,
+            .rail-track img,
+            .headline-name {
+                animation: none !important;
             }
         }
 
@@ -193,6 +208,12 @@
             border-radius: 999px;
             background: var(--success);
             box-shadow: 0 0 12px rgba(159, 216, 184, 0.55);
+            animation: pulse-dot 1.4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.35; }
         }
 
         .hero {
@@ -230,8 +251,30 @@
             text-transform: uppercase;
         }
 
+        /* ---- Flashing NERV-style name (restored) ---- */
+        .headline-name {
+            display: inline-block;
+            padding: 0.1em 0.25em;
+            border: 2px solid var(--signal);
+            animation: name-flicker 2.4s linear infinite;
+        }
+
+        @keyframes name-flicker {
+            0%, 100% {
+                border-color: var(--signal);
+                box-shadow: 0 0 0 rgba(255, 107, 61, 0);
+                text-shadow: none;
+            }
+            50% {
+                border-color: #ffb066;
+                box-shadow: 0 0 18px rgba(255, 107, 61, 0.45);
+                text-shadow: 0 0 12px rgba(255, 176, 102, 0.45);
+            }
+        }
+
         .headline em {
             display: block;
+            margin-top: 0.25rem;
             font-family: "Instrument Serif", serif;
             font-style: italic;
             font-weight: 400;
@@ -255,7 +298,8 @@
         }
 
         .button-link,
-        .nav-button {
+        .nav-button,
+        .stat-trigger {
             border: 1px solid var(--line);
             background: rgba(255, 107, 61, 0.08);
             color: var(--text);
@@ -278,7 +322,9 @@
         .button-link:focus-visible,
         .nav-button:hover,
         .nav-button:focus-visible,
-        .nav-button[aria-selected="true"] {
+        .nav-button[aria-selected="true"],
+        .stat-trigger:hover,
+        .stat-trigger:focus-visible {
             background: rgba(255, 107, 61, 0.16);
             border-color: var(--line-strong);
             color: var(--signal);
@@ -327,6 +373,17 @@
             line-height: 1.55;
             color: var(--text);
             font-size: 0.92rem;
+        }
+
+        .record--signal {
+            background: linear-gradient(180deg, rgba(255, 107, 61, 0.14), rgba(255, 107, 61, 0.04));
+            border-color: var(--line-strong);
+        }
+
+        .record--signal dd {
+            color: var(--signal);
+            font-weight: 600;
+            letter-spacing: 0.04em;
         }
 
         .workspace {
@@ -433,6 +490,11 @@
             font-size: 0.93rem;
         }
 
+        .brief-card a {
+            color: var(--text);
+            font-weight: 600;
+        }
+
         .evidence-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -512,6 +574,155 @@
             border-bottom: none;
         }
 
+        /* ---- Stat readout triggers (restored interactive Build/Personality) ---- */
+        .stat-deck {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.9rem;
+            margin: 1.2rem 0;
+        }
+
+        .stat-trigger {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: flex-start;
+            padding: 1rem;
+            text-align: left;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .stat-trigger .stat-kicker {
+            font-size: 0.7rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--signal);
+        }
+
+        .stat-trigger .stat-title {
+            font-size: 1.05rem;
+            color: var(--text);
+        }
+
+        .stat-trigger .stat-sub {
+            font-size: 0.84rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .stat-trigger:hover .stat-title,
+        .stat-trigger:focus-visible .stat-title {
+            color: var(--signal);
+        }
+
+        /* ---- Pop-up chart window (restored custom-window) ---- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.72);
+            backdrop-filter: blur(3px);
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-overlay.open {
+            display: flex;
+            animation: reveal 0.25s ease;
+        }
+
+        .modal-window {
+            width: min(560px, 100%);
+            background: var(--panel-strong);
+            border: 1px solid var(--line-strong);
+            box-shadow: var(--shadow);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--line);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.8rem;
+        }
+
+        .modal-header .modal-title {
+            color: var(--signal);
+        }
+
+        .modal-close {
+            background: none;
+            border: 1px solid var(--line);
+            color: var(--text);
+            cursor: pointer;
+            font: inherit;
+            line-height: 1;
+            padding: 0.3rem 0.55rem;
+        }
+
+        .modal-close:hover,
+        .modal-close:focus-visible {
+            border-color: var(--line-strong);
+            color: var(--signal);
+        }
+
+        .modal-body {
+            padding: 1rem 1.1rem 1.3rem;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 320px;
+        }
+
+        .modal-caption {
+            margin: 0.9rem 0 0;
+            color: var(--muted);
+            line-height: 1.6;
+            font-family: "Instrument Serif", serif;
+            font-style: italic;
+            font-size: 1.05rem;
+        }
+
+        /* ---- Recovered marginalia (Instrument Serif pull quotes) ---- */
+        .pull-quote {
+            margin: 1.2rem 0;
+            padding-left: 0.9rem;
+            border-left: 2px solid var(--signal);
+            font-family: "Instrument Serif", serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: var(--signal);
+        }
+
+        /* ---- End-of-file stamp ---- */
+        .endcap {
+            margin-top: 1rem;
+            padding: 0.9rem 1.1rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.72rem;
+            color: var(--muted);
+            border-style: dashed;
+        }
+
+        .endcap strong {
+            color: var(--signal);
+            font-weight: 600;
+        }
+
         @media (max-width: 1100px) {
             .classified-rail {
                 display: none;
@@ -526,7 +737,8 @@
             .hero-grid,
             .workspace,
             .evidence-grid,
-            .record-grid {
+            .record-grid,
+            .stat-deck {
                 grid-template-columns: 1fr;
             }
 
@@ -573,17 +785,29 @@
 </head>
 <body>
     <aside class="classified-rail classified-rail--left" aria-hidden="true">
-        <img src="Confidential Upwords.svg" alt="">
-        <img src="Confidential Upwords.svg" alt="">
-        <img src="Confidential Upwords.svg" alt="">
-        <img src="Confidential Upwords.svg" alt="">
+        <div class="rail-track">
+            <img src="Confidential Upwords.svg" alt="">
+            <img src="Confidential Upwords.svg" alt="">
+            <img src="Confidential Upwords.svg" alt="">
+            <img src="Confidential Upwords.svg" alt="">
+            <img src="Confidential Upwords.svg" alt="">
+            <img src="Confidential Upwords.svg" alt="">
+            <img src="Confidential Upwords.svg" alt="">
+            <img src="Confidential Upwords.svg" alt="">
+        </div>
     </aside>
 
     <aside class="classified-rail classified-rail--right" aria-hidden="true">
-        <img src="Confidential Downwards.svg" alt="">
-        <img src="Confidential Downwards.svg" alt="">
-        <img src="Confidential Downwards.svg" alt="">
-        <img src="Confidential Downwards.svg" alt="">
+        <div class="rail-track">
+            <img src="Confidential Downwards.svg" alt="">
+            <img src="Confidential Downwards.svg" alt="">
+            <img src="Confidential Downwards.svg" alt="">
+            <img src="Confidential Downwards.svg" alt="">
+            <img src="Confidential Downwards.svg" alt="">
+            <img src="Confidential Downwards.svg" alt="">
+            <img src="Confidential Downwards.svg" alt="">
+            <img src="Confidential Downwards.svg" alt="">
+        </div>
     </aside>
 
     <div class="frame">
@@ -602,33 +826,34 @@
             <div class="hero-grid">
                 <div>
                     <div class="eyebrow">Recovered Investigation File</div>
-                    <h1 class="headline">Samuel Gyamfi <em>Subject of Interest</em></h1>
+                    <h1 class="headline"><span class="headline-name">Samuel Gyamfi</span> <em>Subject of Interest</em></h1>
                     <p class="summary">
-                        Investigators report repeated involvement in AI systems, synthetic data pipelines, and writing about intelligent systems.
+                        Investigators report repeated involvement in AI systems, synthetic data pipelines, security research, and writing about intelligent systems.
                         Subject shows a consistent preference for high-agency work, niche technical domains, and low tolerance for institutional drag.
                     </p>
                     <div class="hero-actions">
-                        <a class="button-link js-open-panel" href="#casework" data-target="operations">Open Operations Log</a>
+                        <a class="button-link js-open-panel" href="#signals" data-target="signals">Open Behavioral Profile</a>
                         <a class="button-link" href="mailto:gyamfisamuel10@gmail.com">Open Secure Channel</a>
                     </div>
                 </div>
                 <aside class="hero-aside" aria-label="Summary cards">
                     <div class="info-card">
                         <div class="section-label">Primary Assessment</div>
-                        <p>Builds AI systems and research artifacts with an emphasis on useful outcomes over ornamental process.</p>
+                        <p>Builds AI systems and research artifacts with an emphasis on useful outcomes over ornamental process. Hunts software for sport.</p>
                     </div>
                     <div class="record-grid">
                         <dl class="record">
                             <dt>Occupation</dt>
                             <dd>AI Researcher at Tabularis</dd>
                         </dl>
+                        <dl class="record record--signal">
+                            <dt>Security Research</dt>
+                            <!-- TODO: link to Intigriti profile once available -->
+                            <dd>Top 300 &middot; Intigriti</dd>
+                        </dl>
                         <dl class="record">
                             <dt>Focus</dt>
                             <dd>Synthetic data, low-resource NLP, intelligent systems</dd>
-                        </dl>
-                        <dl class="record">
-                            <dt>Operating Pattern</dt>
-                            <dd>Independent execution with research-to-deployment bias</dd>
                         </dl>
                         <dl class="record">
                             <dt>Known Weakness</dt>
@@ -664,13 +889,15 @@
                     <div class="brief-list">
                         <article class="brief-card">
                             <h3>Observed Strengths</h3>
-                            <p>Rapid synthesis across research, engineering, and communication. Comfortable operating in ambiguous technical environments. Strong taste for work that compounds rather than performs.</p>
+                            <p>Subject synthesizes rapidly across research, engineering, and communication. Operates comfortably where the brief is ambiguous and the tooling does not exist yet. Field notes record a consistent taste for work that compounds rather than performs. <span class="redacted">Remainder withheld</span>.</p>
                         </article>
                         <article class="brief-card">
                             <h3>Current Thesis</h3>
-                            <p>Machine intelligence becomes more useful when it is grounded in scarce data, unusual contexts, and rigorous evaluation. The edge is not in generic scale alone, but in choosing the right neglected problems.</p>
+                            <p>Recovered notes indicate a working thesis: machine intelligence becomes more useful when grounded in scarce data, unusual contexts, and rigorous evaluation. The subject appears convinced the edge is not in generic scale alone, but in choosing the right neglected problems &mdash; and in knowing where systems break.</p>
                         </article>
                     </div>
+
+                    <p class="pull-quote">&ldquo;The edge is in the neglected problems.&rdquo;</p>
 
                     <div class="evidence-grid">
                         <article class="evidence-card">
@@ -678,8 +905,8 @@
                             <p>Synthetic data generation, model evaluation, and applied work around niche use cases.</p>
                         </article>
                         <article class="evidence-card">
-                            <strong>Research Output</strong>
-                            <p>Published work on low-resource Swahili sentiment analysis with multi-LLM judging and human validation.</p>
+                            <strong>Security Research</strong>
+                            <p>Active bug-bounty hunter. Currently ranked in the global Top 300 on Intigriti.</p>
                         </article>
                         <article class="evidence-card">
                             <strong>Writing</strong>
@@ -694,7 +921,10 @@
                             <div class="section-label">Known Operations</div>
                             <h2>Field Activity</h2>
                         </div>
+                        <span class="tag">Operations Logged: 03</span>
                     </div>
+
+                    <p class="pull-quote">&ldquo;Builds the system, then finds where it quietly fails.&rdquo;</p>
 
                     <div class="case-list">
                         <article class="case-card">
@@ -704,22 +934,36 @@
                                 <span class="tag">Machine Learning</span>
                             </div>
                             <h3>Synthetic Data For Niche Use Cases</h3>
-                            <p>Built datasets and training workflows for machine learning problems where off-the-shelf data quality is inadequate. The emphasis is controllability: constructing data that fits the problem rather than forcing the problem to fit generic corpora.</p>
+                            <p>Builds datasets and training workflows, trains models, and identifies use cases for machine learning problems where off-the-shelf data quality is inadequate. The emphasis is controllability: constructing data that fits the problem rather than forcing the problem to fit generic corpora.</p>
                             <div class="research-links">
-                                <a class="link-chip" href="https://huggingface.co/tabularisai" target="_blank" rel="noopener noreferrer">View Hugging Face</a>
+                                <a class="link-chip" href="https://huggingface.co/tabularisai" target="_blank" rel="noopener noreferrer">Exhibit A &mdash; Hugging Face</a>
                             </div>
                         </article>
 
                         <article class="case-card">
                             <div class="case-meta">
                                 <span class="tag">Operation 02</span>
+                                <span class="tag">Security Research</span>
+                                <span class="tag">Bug Bounty</span>
+                            </div>
+                            <h3>Adversarial Field Work</h3>
+                            <p>Breaks software on purpose. Hunts vulnerabilities across live targets and reports them through coordinated disclosure, currently sitting in the global Top 300 on Intigriti. The same instinct that builds systems is used to find where they quietly fail. Current targets: <span class="redacted">Withheld</span>.</p>
+                            <div class="research-links">
+                                <!-- TODO: swap href for Intigriti profile URL once available -->
+                                <span class="tag">Intigriti &middot; Top 300</span>
+                            </div>
+                        </article>
+
+                        <article class="case-card">
+                            <div class="case-meta">
+                                <span class="tag">Operation 03</span>
                                 <span class="tag">Writing</span>
                                 <span class="tag">Analysis</span>
                             </div>
                             <h3>The Variety Engine</h3>
                             <p>A writing project focused on intelligent systems and their likely effects on the world. Useful as both a public thinking log and a way to make technical judgment visible outside code and papers.</p>
                             <div class="research-links">
-                                <a class="link-chip" href="https://varietyengine.substack.com/about" target="_blank" rel="noopener noreferrer">Read Publication</a>
+                                <a class="link-chip" href="https://varietyengine.substack.com/about" target="_blank" rel="noopener noreferrer">Exhibit B &mdash; Publication</a>
                             </div>
                         </article>
                     </div>
@@ -743,10 +987,10 @@
                         <h3>Synthetic Data Generation Pipeline for Low-Resource Swahili Sentiment Analysis: Multi-LLM Judging with Human Validation</h3>
                         <p>This paper addresses a familiar failure mode in NLP: high-utility languages remain under-resourced because the tooling ecosystem assumes abundant labeled data. The work introduces a controllable synthetic data pipeline for Swahili sentiment analysis, uses automated LLM judges for quality assessment, and validates the generated labels with targeted human review.</p>
                         <div class="research-links">
-                            <a class="link-chip" href="https://aclanthology.org/2026.africanlp-main.12/" target="_blank" rel="noopener noreferrer">ACL Anthology Entry</a>
-                            <a class="link-chip" href="https://aclanthology.org/2026.africanlp-main.12.pdf" target="_blank" rel="noopener noreferrer">Open PDF</a>
-                            <a class="link-chip" href="https://doi.org/10.18653/v1/2026.africanlp-main.12" target="_blank" rel="noopener noreferrer">DOI</a>
-                            <a class="link-chip" href="https://huggingface.co/datasets/tabularisai/swahili-sentiment-dataset" target="_blank" rel="noopener noreferrer">Dataset</a>
+                            <a class="link-chip" href="https://aclanthology.org/2026.africanlp-main.12/" target="_blank" rel="noopener noreferrer">Exhibit C &mdash; ACL Anthology</a>
+                            <a class="link-chip" href="https://aclanthology.org/2026.africanlp-main.12.pdf" target="_blank" rel="noopener noreferrer">Intercepted PDF</a>
+                            <a class="link-chip" href="https://doi.org/10.18653/v1/2026.africanlp-main.12" target="_blank" rel="noopener noreferrer">DOI Trace</a>
+                            <a class="link-chip" href="https://huggingface.co/datasets/tabularisai/swahili-sentiment-dataset" target="_blank" rel="noopener noreferrer">Seized Dataset</a>
                         </div>
                     </article>
                 </section>
@@ -757,16 +1001,50 @@
                             <div class="section-label">Behavioral Signals</div>
                             <h2>Interpreting the Subject</h2>
                         </div>
+                        <span class="tag">Profile: Recovered</span>
                     </div>
+
+                    <p class="summary" style="margin-top:0">
+                        Two readouts were recovered from the subject's file. Open each to inspect the raw telemetry.
+                    </p>
+
+                    <div class="stat-deck">
+                        <button class="stat-trigger" type="button" data-chart="build">
+                            <span class="stat-kicker">Readout 01</span>
+                            <span class="stat-title">Build Profile</span>
+                            <span class="stat-sub">Temperament mapped to a six-axis attribute spread. Open radar &rarr;</span>
+                        </button>
+                        <button class="stat-trigger" type="button" data-chart="personality">
+                            <span class="stat-kicker">Readout 02</span>
+                            <span class="stat-title">Personality Readout</span>
+                            <span class="stat-sub">Big-Five traits, self-assessed and unflinching. Open bars &rarr;</span>
+                        </button>
+                    </div>
+
+                    <p class="pull-quote">&ldquo;Persistence overcomes all barriers; the constraints are looser than they look.&rdquo;</p>
 
                     <div class="brief-list">
                         <article class="brief-card">
                             <h3>Disposition</h3>
-                            <p>High-agency, suspicious of process for its own sake, and drawn to technically meaningful work with compounding value.</p>
+                            <p>High-agency, suspicious of process for its own sake, and drawn to technically meaningful work with compounding value. Disagreeable in the productive sense &mdash; will argue with the consensus when the consensus is wrong.</p>
                         </article>
                         <article class="brief-card">
-                            <h3>Intellectual Influences</h3>
-                            <p>Anime and fiction, mathematical writing, startup essays, and technical blogs. The recurring pattern is not fandom but attraction to systems, leverage, and disciplined ambition.</p>
+                            <h3>Inspiration</h3>
+                            <p>
+                                Anime and fiction more broadly &mdash; this very file draws on
+                                <a href="https://www.youtube.com/watch?v=k0oQr7ZVtBQ" target="_blank" rel="noopener noreferrer">the UI design language of Neon Genesis Evangelion</a>.
+                                Indulgence in fiction is how the subject spends leisure time. Otherwise reading widely across the internet:
+                                <a href="https://www.lesswrong.com/posts/XvN2QQpKTuEzgkZHY/being-the-pareto-best-in-the-world" target="_blank" rel="noopener noreferrer">LessWrong</a>,
+                                the blog of mathematician <a href="https://terrytao.wordpress.com/career-advice/work-hard/" target="_blank" rel="noopener noreferrer">Terence Tao</a>,
+                                entrepreneurship essays from <a href="https://www.paulgraham.com/articles.html" target="_blank" rel="noopener noreferrer">Paul Graham</a>,
+                                and curiosities on productivity and cryptography from <a href="https://gwern.net/index" target="_blank" rel="noopener noreferrer">Gwern</a>.
+                                When not reading, likely listening to <a href="https://darknetdiaries.com/" target="_blank" rel="noopener noreferrer">Darknet Diaries</a>.
+                                Considers <a href="https://en.wikipedia.org/wiki/Jensen_Huang" target="_blank" rel="noopener noreferrer">Jensen Huang</a> the greatest entrepreneur alive, for the relentlessness.
+                            </p>
+                        </article>
+                        <article class="brief-card">
+                            <h3>Beliefs</h3>
+                            <p>Persistence overcomes all barriers &mdash; the only real constraints on human ambition are energy and time, and those constraints are far looser than most people imagine. Focus, direction, and agency are in limited supply and even more limited demand.</p>
                         </article>
                         <article class="brief-card">
                             <h3>Institutional Assessment</h3>
@@ -781,6 +1059,7 @@
                             <div class="section-label">Secure Contact</div>
                             <h2>Communication Channels</h2>
                         </div>
+                        <span class="tag">Channels Verified: 04</span>
                     </div>
 
                     <div class="contact-links">
@@ -810,35 +1089,175 @@
                 </section>
             </main>
         </div>
+
+        <footer class="endcap panel" aria-label="End of file">
+            <strong>End of File</strong>
+            <span>//</span>
+            <span>Case ID: SG-091</span>
+            <span>//</span>
+            <span>Last Reviewed: <span id="review-date">2026-06-11</span></span>
+        </footer>
+    </div>
+
+    <!-- Pop-up chart window (restored interactive readouts) -->
+    <div class="modal-overlay" id="chart-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-window">
+            <div class="modal-header">
+                <span class="modal-title" id="modal-title">Readout</span>
+                <button class="modal-close" type="button" id="modal-close" aria-label="Close readout">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="chart-container">
+                    <canvas id="modal-canvas"></canvas>
+                </div>
+                <p class="modal-caption" id="modal-caption"></p>
+            </div>
+        </div>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            /* ---- Tab navigation ---- */
             const buttons = Array.from(document.querySelectorAll(".nav-button"));
             const panels = Array.from(document.querySelectorAll(".content-panel"));
             const openPanelLinks = Array.from(document.querySelectorAll(".js-open-panel"));
 
             function setActivePanel(targetId) {
                 buttons.forEach((button) => {
-                    const isActive = button.dataset.target === targetId;
-                    button.setAttribute("aria-selected", String(isActive));
+                    button.setAttribute("aria-selected", String(button.dataset.target === targetId));
                 });
-
                 panels.forEach((panel) => {
                     panel.classList.toggle("active", panel.id === targetId);
                 });
             }
 
             buttons.forEach((button) => {
-                button.addEventListener("click", () => {
-                    setActivePanel(button.dataset.target);
-                });
+                button.addEventListener("click", () => setActivePanel(button.dataset.target));
+            });
+            openPanelLinks.forEach((link) => {
+                link.addEventListener("click", () => setActivePanel(link.dataset.target));
             });
 
-            openPanelLinks.forEach((link) => {
-                link.addEventListener("click", () => {
-                    setActivePanel(link.dataset.target);
+            /* ---- File review stamp ---- */
+            const reviewDate = document.getElementById("review-date");
+            if (reviewDate) reviewDate.textContent = new Date().toISOString().slice(0, 10);
+
+            /* ---- Chart palette ---- */
+            const SIGNAL = "#ff6b3d";
+            const SIGNAL_DEEP = "#d9442d";
+            const TEXT = "#f2dccb";
+            const GRID = "rgba(255, 107, 61, 0.45)";
+
+            const charts = {
+                build: {
+                    title: "Readout 01 // SG-091 // Build",
+                    caption: "Temperament rendered as a six-axis attribute spread. High intelligence and wisdom, well above average across the rest.",
+                    type: "radar",
+                    data: {
+                        labels: ["Intelligence", "Wisdom", "Dexterity", "Constitution", "Charisma", "Strength"],
+                        datasets: [{
+                            label: "Temperament",
+                            data: [142, 148, 120, 105, 130, 135],
+                            backgroundColor: "rgba(217, 68, 45, 0.2)",
+                            borderColor: SIGNAL,
+                            pointBackgroundColor: SIGNAL_DEEP,
+                            pointBorderColor: "#fff",
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                beginAtZero: true,
+                                ticks: { display: false },
+                                grid: { color: GRID, lineWidth: 1 },
+                                angleLines: { color: GRID, lineWidth: 1 },
+                                pointLabels: { color: TEXT, font: { family: "Kode Mono" } }
+                            }
+                        },
+                        plugins: { legend: { display: false }, tooltip: { enabled: true } }
+                    }
+                },
+                personality: {
+                    title: "Readout 02 // SG-091 // Personality",
+                    caption: "Big-Five traits, self-assessed (0–100). Sky-high openness, low neuroticism, and deliberately low agreeableness.",
+                    type: "bar",
+                    data: {
+                        labels: ["Extraversion", "Openness", "Agreeableness", "Conscientiousness", "Neuroticism"],
+                        datasets: [{
+                            label: "Personality Traits",
+                            data: [54, 98, 21, 61, 1],
+                            backgroundColor: SIGNAL,
+                            borderColor: SIGNAL_DEEP,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: "y",
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                max: 100,
+                                grid: { color: GRID, lineWidth: 1 },
+                                ticks: { color: TEXT, font: { family: "Kode Mono" } }
+                            },
+                            y: {
+                                grid: { color: GRID, lineWidth: 1 },
+                                ticks: { color: TEXT, font: { family: "Kode Mono" } }
+                            }
+                        },
+                        plugins: { legend: { display: false }, tooltip: { enabled: true } }
+                    }
+                }
+            };
+
+            /* ---- Modal + chart wiring ---- */
+            const overlay = document.getElementById("chart-modal");
+            const closeBtn = document.getElementById("modal-close");
+            const titleEl = document.getElementById("modal-title");
+            const captionEl = document.getElementById("modal-caption");
+            const canvas = document.getElementById("modal-canvas");
+            let activeChart = null;
+            let lastTrigger = null;
+
+            function openChart(key, trigger) {
+                const config = charts[key];
+                if (!config) return;
+                lastTrigger = trigger || null;
+                titleEl.textContent = config.title;
+                captionEl.textContent = config.caption;
+                if (activeChart) activeChart.destroy();
+                activeChart = new Chart(canvas, {
+                    type: config.type,
+                    data: config.data,
+                    options: config.options
                 });
+                overlay.classList.add("open");
+                closeBtn.focus();
+            }
+
+            function closeChart() {
+                overlay.classList.remove("open");
+                if (activeChart) {
+                    activeChart.destroy();
+                    activeChart = null;
+                }
+                if (lastTrigger) lastTrigger.focus();
+            }
+
+            document.querySelectorAll(".stat-trigger").forEach((trigger) => {
+                trigger.addEventListener("click", () => openChart(trigger.dataset.chart, trigger));
+            });
+            closeBtn.addEventListener("click", closeChart);
+            overlay.addEventListener("click", (event) => {
+                if (event.target === overlay) closeChart();
+            });
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape" && overlay.classList.contains("open")) closeChart();
             });
         });
     </script>
