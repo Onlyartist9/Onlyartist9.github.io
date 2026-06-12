@@ -1017,7 +1017,7 @@
                         <button class="stat-trigger" type="button" data-chart="personality">
                             <span class="stat-kicker">Readout 02</span>
                             <span class="stat-title">Personality Readout</span>
-                            <span class="stat-sub">Big-Five traits, self-assessed and unflinching. Open bars &rarr;</span>
+                            <span class="stat-sub">Big-Five traits, unflinching. Open bars &rarr;</span>
                         </button>
                     </div>
 
@@ -1162,13 +1162,13 @@
             const charts = {
                 build: {
                     title: "Readout 01 // SG-091 // Build",
-                    caption: "Temperament rendered as a six-axis attribute spread. High intelligence and wisdom, well above average across the rest.",
+                    caption: "Temperament rendered as a six-axis attribute spread. Maxed-out dexterity — cognitive flexibility across the board — with high intelligence and wisdom.",
                     type: "radar",
                     data: {
                         labels: ["Intelligence", "Wisdom", "Dexterity", "Constitution", "Charisma", "Strength"],
                         datasets: [{
                             label: "Temperament",
-                            data: [142, 148, 120, 105, 130, 135],
+                            data: [142, 148, 150, 105, 130, 135],
                             backgroundColor: "rgba(217, 68, 45, 0.2)",
                             borderColor: SIGNAL,
                             pointBackgroundColor: SIGNAL_DEEP,
@@ -1193,7 +1193,7 @@
                 },
                 personality: {
                     title: "Readout 02 // SG-091 // Personality",
-                    caption: "Big-Five traits, self-assessed (0–100). Sky-high openness, low neuroticism, and deliberately low agreeableness.",
+                    caption: "Big-Five traits (0–100). Sky-high openness, low neuroticism, and deliberately low agreeableness.",
                     type: "bar",
                     data: {
                         labels: ["Extraversion", "Openness", "Agreeableness", "Conscientiousness", "Neuroticism"],
